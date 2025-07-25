@@ -35,9 +35,13 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo/Brand */}
-          <Link href="#home" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gold-500 rounded-full flex items-center justify-center">
-              <span className="text-forest-900 font-bold text-xl">L</span>
+          <Link href="#home" className="flex items-center space-x-3">
+            <div className="w-12 h-14 flex items-center justify-center">
+              <img 
+                src="/cancer-ribbon-logo.svg" 
+                alt="Cancer Awareness Ribbon" 
+                className="w-10 h-12 filter drop-shadow-lg"
+              />
             </div>
             <div>
               <div className="text-white font-display font-bold text-lg">

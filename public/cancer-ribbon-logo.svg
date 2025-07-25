@@ -1,0 +1,25 @@
+<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cancer Awareness Ribbon -->
+  <defs>
+    <linearGradient id="ribbonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E5B566;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#D4A574;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C19A5A;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Left loop of ribbon -->
+  <path d="M25 30 Q15 20, 10 35 Q8 50, 15 65 Q20 75, 30 70 Q35 65, 32 55 Q30 45, 35 40 Q40 35, 45 40 L50 45" 
+        fill="url(#ribbonGradient)" stroke="#B8935A" stroke-width="1"/>
+  
+  <!-- Right loop of ribbon -->
+  <path d="M75 30 Q85 20, 90 35 Q92 50, 85 65 Q80 75, 70 70 Q65 65, 68 55 Q70 45, 65 40 Q60 35, 55 40 L50 45" 
+        fill="url(#ribbonGradient)" stroke="#B8935A" stroke-width="1"/>
+  
+  <!-- Bottom tails -->
+  <path d="M45 40 L50 45 L55 40 L52 80 Q50 90, 48 80 Z" 
+        fill="url(#ribbonGradient)" stroke="#B8935A" stroke-width="1"/>
+  
+  <!-- Center crossing -->
+  <ellipse cx="50" cy="45" rx="8" ry="6" fill="url(#ribbonGradient)" stroke="#B8935A" stroke-width="1"/>
+</svg>
