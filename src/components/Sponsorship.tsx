@@ -235,7 +235,7 @@ const Sponsorship = () => {
           
           <div className="space-y-4">
             <div className="text-gold-200">
-              <strong>2024 Sponsors Include:</strong>
+              <strong>Our Sponsors Include:</strong>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-gold-100">
               <div>Local Business Partners</div>

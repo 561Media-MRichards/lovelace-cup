@@ -25,10 +25,10 @@ const About = () => {
   ];
 
   const stats = [
-    { number: '150+', label: 'Participants Expected' },
+    { number: '20', label: 'Team Goal' },
     { number: '$50K+', label: 'Goal to Raise' },
-    { number: '25+', label: 'Families Supported' },
-    { number: '3rd', label: 'Annual Tournament' },
+    { number: '15+', label: 'Families Supported' },
+    { number: '2nd', label: 'Annual Tournament' },
   ];
 
   return (
@@ -68,8 +68,8 @@ const About = () => {
               key={index}
               className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
             >
-              <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="font-display font-semibold text-2xl text-forest-900 mb-4">
+              <h3 className="font-display font-semibold text-2xl text-forest-900 mb-4 flex items-center gap-3">
+                <span className="text-3xl">{feature.icon}</span>
                 {feature.title}
               </h3>
               <p className="text-forest-700 leading-relaxed">
