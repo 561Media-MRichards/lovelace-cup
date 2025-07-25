@@ -36,11 +36,11 @@ const Navigation = () => {
         <div className="flex justify-between items-center py-4">
           {/* Logo/Brand */}
           <Link href="#home" className="flex items-center space-x-3">
-            <div className="w-12 h-14 flex items-center justify-center">
+            <div className="w-10 h-12 flex items-center justify-center">
               <img 
-                src="/cancer-ribbon-logo.svg" 
-                alt="Cancer Awareness Ribbon" 
-                className="w-10 h-12 filter drop-shadow-lg"
+                src="/lmc-logo.svg" 
+                alt="Lovelace Memorial Cup - Cancer Awareness Ribbon" 
+                className="w-8 h-10 filter drop-shadow-lg hover:scale-105 transition-transform duration-200"
               />
             </div>
             <div>

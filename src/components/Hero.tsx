@@ -48,9 +48,9 @@ const Hero = () => {
           {/* Cancer Awareness Ribbon Logo */}
           <div className="flex justify-center mb-6">
             <img 
-              src="/cancer-ribbon-logo.svg" 
-              alt="Cancer Awareness Ribbon" 
-              className="w-16 h-20 filter drop-shadow-2xl animate-pulse-slow"
+              src="/lmc-logo.svg" 
+              alt="Lovelace Memorial Cup - Cancer Awareness Ribbon" 
+              className="w-20 h-24 filter drop-shadow-2xl animate-pulse-slow hover:scale-105 transition-transform duration-300"
             />
           </div>
           
