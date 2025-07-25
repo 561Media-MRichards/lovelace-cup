@@ -107,6 +107,65 @@ const About = () => {
           </div>
         </div>
 
+        {/* Memorial Section */}
+        <div className="mt-20 mb-16">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-100">
+            <div className="text-center mb-12">
+              <h3 className="font-display font-bold text-3xl text-forest-900 mb-4">
+                In Loving Memory of Chase Lovelace
+              </h3>
+              <div className="w-16 h-1 bg-gold-500 mx-auto rounded-full"></div>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Photo Grid */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-4">
+                  <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-lg">
+                    <img 
+                      src="/Chase black shirt 1.jpg" 
+                      alt="Chase Lovelace" 
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-4 pt-8">
+                  <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+                    <img 
+                      src="/Chase drum smiling front.jpg" 
+                      alt="Chase Lovelace playing drums" 
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              {/* Memorial Text */}
+              <div className="space-y-6">
+                <p className="text-lg text-forest-700 leading-relaxed">
+                  Chase Lovelace was a vibrant soul who brought joy and music to everyone around him. 
+                  His passion for life, infectious smile, and caring heart touched countless lives in our community.
+                </p>
+                <p className="text-lg text-forest-700 leading-relaxed">
+                  Though cancer took him from us too soon, Chase's spirit lives on through this memorial 
+                  tournament. His love for bringing people together and supporting others in their time 
+                  of need continues to inspire our mission.
+                </p>
+                <div className="bg-forest-50 rounded-xl p-6 border-l-4 border-gold-500">
+                  <p className="text-forest-800 font-medium italic">
+                    "Chase believed in the power of community and the importance of showing love to those 
+                    who need it most. This tournament carries forward his legacy of compassion and hope."
+                  </p>
+                </div>
+                <p className="text-lg text-forest-700 leading-relaxed">
+                  Every swing, every donation, and every moment of fellowship honors Chase's memory 
+                  while supporting families facing their own battles with cancer.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Call to Action */}
         <div className="text-center mt-16">
           <h3 className="font-display font-semibold text-2xl text-forest-900 mb-6">
