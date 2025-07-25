@@ -47,10 +47,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gold-500 rounded-full flex items-center justify-center">
-                <span className="text-forest-900 font-bold text-xl">L</span>
-              </div>
+            <div className="flex items-center space-x-4 mb-4">
+              <img 
+                src="/LMC-Main.svg" 
+                alt="Lovelace Memorial Cup" 
+                className="h-32 w-auto object-contain filter drop-shadow-lg"
+              />
               <div>
                 <div className="font-display font-bold text-xl">
                   Lovelace Memorial Cup
@@ -153,12 +155,31 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-forest-700 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
-          <div className="text-gray-400 text-sm mb-4 sm:mb-0">
-            © {currentYear} Lovelace Memorial Cup. All rights reserved.
+        <div className="border-t border-forest-700 mt-8 pt-8">
+          <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
+            <div className="text-gray-400 text-sm mb-4 sm:mb-0">
+              © {currentYear} Lovelace Memorial Cup. All rights reserved.
+            </div>
+            <div className="text-gray-400 text-sm">
+              Made with ❤️ for families battling cancer
+            </div>
           </div>
-          <div className="text-gray-400 text-sm">
-            Made with ❤️ for families battling cancer
+          
+          {/* Website Development Credit */}
+          <div className="text-center border-t border-forest-700 pt-4">
+            <p className="text-gray-400 text-sm mb-2">Website Development by</p>
+            <a 
+              href="https://www.561media.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center hover:opacity-80 transition-opacity duration-200"
+            >
+              <img 
+                src="/561Media.svg" 
+                alt="561Media" 
+                className="h-8 w-auto object-contain"
+              />
+            </a>
           </div>
         </div>
       </div>

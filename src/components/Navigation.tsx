@@ -33,23 +33,15 @@ const Navigation = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-0.5">
           {/* Logo/Brand */}
-          <Link href="#home" className="flex items-center space-x-3">
-            <div className="w-10 h-12 flex items-center justify-center">
+          <Link href="#home" className="flex items-center">
+            <div className="flex items-center justify-center">
               <img 
-                src="/lmc-logo.svg" 
-                alt="Lovelace Memorial Cup - Cancer Awareness Ribbon" 
-                className="w-8 h-10 filter drop-shadow-lg hover:scale-105 transition-transform duration-200"
+                src="/LMC-Main.svg" 
+                alt="Lovelace Memorial Cup" 
+                className="h-32 w-auto object-contain filter drop-shadow-lg hover:scale-105 transition-transform duration-200"
               />
-            </div>
-            <div>
-              <div className="text-white font-display font-bold text-lg">
-                Lovelace Memorial Cup
-              </div>
-              <div className="text-gold-300 text-xs">
-                In a world full of hate... let&apos;s show some LOVE!
-              </div>
             </div>
           </Link>
 

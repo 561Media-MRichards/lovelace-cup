@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Contact = () => {
+  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,6 +13,10 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -252,7 +257,7 @@ const Contact = () => {
                 ></textarea>
               </div>
 
-              {submitStatus === 'success' && (
+              {mounted && submitStatus === 'success' && (
                 <div className="bg-forest-100 border border-forest-300 text-forest-800 px-4 py-3 rounded-lg">
                   ✅ Thank you! Your message will open in your email client.
                 </div>

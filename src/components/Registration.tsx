@@ -59,7 +59,7 @@ const Registration = () => {
       ],
       popular: false,
       buttonText: 'Become Gold Sponsor',
-      buttonColor: 'bg-gold-600 hover:bg-gold-500 text-white hover:text-gold-100 transform hover:scale-105'
+      buttonColor: 'bg-gold-600 hover:bg-gold-500 text-forest-900 hover:text-forest-700 transform hover:scale-105'
     }
   ];
 

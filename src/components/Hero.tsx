@@ -45,15 +45,6 @@ const Hero = () => {
       <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto pt-20">
         {/* Main Heading */}
         <div className="animate-fade-in">
-          {/* Cancer Awareness Ribbon Logo */}
-          <div className="flex justify-center mb-6">
-            <img 
-              src="/lmc-logo.svg" 
-              alt="Lovelace Memorial Cup - Cancer Awareness Ribbon" 
-              className="w-20 h-24 filter drop-shadow-2xl animate-pulse-slow hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-          
           <h1 className="font-display font-bold text-4xl sm:text-6xl lg:text-7xl mb-6 leading-tight">
             Lovelace
             <span className="block text-gold-300 animate-pulse-slow">Memorial Cup</span>

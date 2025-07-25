@@ -213,6 +213,26 @@ const Sponsorship = () => {
             us to focus on what matters most—supporting families battling cancer and 
             bringing our community together.
           </p>
+          
+          {/* Presenting Sponsor */}
+          <div className="mb-8">
+            <div className="text-gold-200 mb-4">
+              <strong>Presenting Sponsor:</strong>
+            </div>
+            <a 
+              href="https://www.561media.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block hover:opacity-80 transition-opacity duration-200"
+            >
+              <img 
+                src="/561Media.svg" 
+                alt="561Media - Presenting Sponsor" 
+                className="h-16 w-auto object-contain mx-auto"
+              />
+            </a>
+          </div>
+          
           <div className="space-y-4">
             <div className="text-gold-200">
               <strong>2024 Sponsors Include:</strong>
