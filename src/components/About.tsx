@@ -79,36 +79,8 @@ const About = () => {
           ))}
         </div>
 
-        {/* Story Section */}
-        <div className="bg-forest-900 rounded-2xl p-8 sm:p-12 text-white">
-          <div className="max-w-4xl mx-auto text-center">
-            <h3 className="font-display font-bold text-3xl sm:text-4xl mb-8 text-gold-300">
-              Our Story
-            </h3>
-            <div className="space-y-6 text-lg leading-relaxed">
-              <p>
-                Founded in memory of a beloved community member, the Lovelace Memorial Cup 
-                represents the power of coming together in times of need. When families face 
-                the overwhelming challenge of cancer, they shouldn&apos;t have to face it alone.
-              </p>
-              <p>
-                Through this annual tournament, we&apos;ve created a tradition that combines our 
-                love of golf with our commitment to supporting one another. Every participant, 
-                sponsor, and volunteer contributes to a legacy of love that grows stronger each year.
-              </p>
-              <blockquote className="text-2xl font-light italic text-gold-200 border-l-4 border-gold-300 pl-6 my-8">
-                &quot;In a world full of hate... let&apos;s show some LOVE!&quot;
-              </blockquote>
-              <p>
-                Join us as we continue this meaningful tradition, creating memories on the 
-                course while making a real difference in the lives of families who need our support.
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Memorial Section */}
-        <div className="mt-20 mb-16">
+        <div className="mb-16">
           <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-100">
             <div className="text-center mb-12">
               <h3 className="font-display font-bold text-3xl text-forest-900 mb-4">
@@ -118,25 +90,14 @@ const About = () => {
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Photo Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-4">
-                  <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-lg">
-                    <img 
-                      src="/Chase black shirt 1.jpg" 
-                      alt="Chase Lovelace" 
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-4 pt-8">
-                  <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                    <img 
-                      src="/Chase drum smiling front.jpg" 
-                      alt="Chase Lovelace playing drums" 
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
+              {/* Single Photo */}
+              <div className="flex justify-center">
+                <div className="w-80 aspect-[3/4] rounded-2xl overflow-hidden shadow-lg">
+                  <img 
+                    src="/Chase black shirt 1.jpg" 
+                    alt="Chase Lovelace" 
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
               </div>
               
@@ -162,6 +123,34 @@ const About = () => {
                   while supporting families facing their own battles with cancer.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Story Section */}
+        <div className="bg-forest-900 rounded-2xl p-8 sm:p-12 text-white">
+          <div className="max-w-4xl mx-auto text-center">
+            <h3 className="font-display font-bold text-3xl sm:text-4xl mb-8 text-gold-300">
+              Our Story
+            </h3>
+            <div className="space-y-6 text-lg leading-relaxed">
+              <p>
+                Founded in memory of a beloved community member, the Lovelace Memorial Cup 
+                represents the power of coming together in times of need. When families face 
+                the overwhelming challenge of cancer, they shouldn&apos;t have to face it alone.
+              </p>
+              <p>
+                Through this annual tournament, we&apos;ve created a tradition that combines our 
+                love of golf with our commitment to supporting one another. Every participant, 
+                sponsor, and volunteer contributes to a legacy of love that grows stronger each year.
+              </p>
+              <blockquote className="text-2xl font-light italic text-gold-200 border-l-4 border-gold-300 pl-6 my-8">
+                &quot;In a world full of hate... let&apos;s show some LOVE!&quot;
+              </blockquote>
+              <p>
+                Join us as we continue this meaningful tradition, creating memories on the 
+                course while making a real difference in the lives of families who need our support.
+              </p>
             </div>
           </div>
         </div>
