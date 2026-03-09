@@ -54,17 +54,17 @@ const Contact = () => {
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.from('[data-contact-card]', {
-          x: -40, opacity: 0, duration: 0.8,
-          ease: 'power3.out', stagger: 0.15,
-          scrollTrigger: { trigger: '[data-contact-left]', start: 'top 80%' },
-        });
+        gsap.fromTo('[data-contact-card]',
+          { x: -30, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out', stagger: 0.15,
+            scrollTrigger: { trigger: '[data-contact-left]', start: 'top 85%' } }
+        );
 
-        gsap.from('[data-contact-form]', {
-          x: 40, opacity: 0, duration: 0.9,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: '[data-contact-form]', start: 'top 80%' },
-        });
+        gsap.fromTo('[data-contact-form]',
+          { x: 30, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+            scrollTrigger: { trigger: '[data-contact-form]', start: 'top 85%' } }
+        );
       });
     }, containerRef);
 

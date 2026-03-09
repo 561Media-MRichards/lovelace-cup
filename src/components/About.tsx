@@ -50,11 +50,11 @@ const About = () => {
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.from('[data-about-mission]', {
-          y: 40, opacity: 0, duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: '[data-about-mission]', start: 'top 85%' },
-        });
+        gsap.fromTo('[data-about-mission]',
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: '[data-about-mission]', start: 'top 85%' } }
+        );
 
         const statEls = gsap.utils.toArray<HTMLElement>('[data-stat-number]');
         statEls.forEach((el) => {
@@ -73,35 +73,35 @@ const About = () => {
           });
         });
 
-        gsap.from('[data-feature-card]', {
-          y: 40, opacity: 0, duration: 0.8,
-          ease: 'power3.out', stagger: 0.15,
-          scrollTrigger: { trigger: '[data-feature-grid]', start: 'top 80%' },
-        });
+        gsap.fromTo('[data-feature-card]',
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', stagger: 0.15,
+            scrollTrigger: { trigger: '[data-feature-grid]', start: 'top 85%' } }
+        );
 
-        gsap.from('[data-memorial-photo]', {
-          clipPath: 'circle(0% at 50% 50%)', duration: 1.2,
-          ease: 'power2.inOut',
-          scrollTrigger: { trigger: '[data-memorial-photo]', start: 'top 75%' },
-        });
+        gsap.fromTo('[data-memorial-photo]',
+          { clipPath: 'circle(0% at 50% 50%)' },
+          { clipPath: 'circle(100% at 50% 50%)', duration: 1.2, ease: 'power2.inOut',
+            scrollTrigger: { trigger: '[data-memorial-photo]', start: 'top 85%' } }
+        );
 
-        gsap.from('[data-memorial-text] > *', {
-          y: 30, opacity: 0, duration: 0.8,
-          ease: 'power3.out', stagger: 0.15,
-          scrollTrigger: { trigger: '[data-memorial-text]', start: 'top 80%' },
-        });
+        gsap.fromTo('[data-memorial-text] > *',
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', stagger: 0.15,
+            scrollTrigger: { trigger: '[data-memorial-text]', start: 'top 85%' } }
+        );
 
-        gsap.from('[data-timeline-item]', {
-          x: -30, opacity: 0, duration: 0.7,
-          ease: 'power3.out', stagger: 0.2,
-          scrollTrigger: { trigger: '[data-timeline]', start: 'top 85%' },
-        });
+        gsap.fromTo('[data-timeline-item]',
+          { x: -20, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.7, ease: 'power3.out', stagger: 0.2,
+            scrollTrigger: { trigger: '[data-timeline]', start: 'top 85%' } }
+        );
 
-        gsap.from('[data-our-story]', {
-          y: 40, opacity: 0, duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: '[data-our-story]', start: 'top 80%' },
-        });
+        gsap.fromTo('[data-our-story]',
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: '[data-our-story]', start: 'top 85%' } }
+        );
       });
     }, containerRef);
 
@@ -138,6 +138,11 @@ const About = () => {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Golf course divider image */}
+        <div className="mb-14 rounded-2xl overflow-hidden shadow-lg">
+          <img src="/golf-ball-dew.png" alt="Golf ball on morning dew" className="w-full h-48 sm:h-56 object-cover" />
         </div>
 
         {/* Features Grid */}

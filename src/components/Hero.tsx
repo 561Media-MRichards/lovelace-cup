@@ -46,7 +46,6 @@ const Hero = () => {
 
         tl.from('[data-hero-label]', { y: 30, opacity: 0, duration: 0.8 })
           .from('[data-hero-title]', { y: 40, opacity: 0, duration: 1 }, '-=0.5')
-          .from('[data-hero-subtitle]', { y: 30, opacity: 0, duration: 0.9 }, '-=0.6')
           .from('[data-hero-tagline]', { y: 20, opacity: 0, duration: 0.8 }, '-=0.5')
           .from('[data-hero-photo]', { scale: 1.05, opacity: 0, duration: 1.2 }, '-=0.8')
           .from('[data-hero-countdown] > div', { y: 20, opacity: 0, duration: 0.6, stagger: 0.1 }, '-=0.7')

@@ -74,21 +74,17 @@ const Sponsorship = () => {
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        // Benefit cards: stagger fade up
-        gsap.from('[data-benefit-card]', {
-          y: 40, opacity: 0, duration: 0.8,
-          ease: 'power3.out',
-          stagger: 0.15,
-          scrollTrigger: { trigger: '[data-benefit-grid]', start: 'top 80%' },
-        });
+        gsap.fromTo('[data-benefit-card]',
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', stagger: 0.15,
+            scrollTrigger: { trigger: '[data-benefit-grid]', start: 'top 85%' } }
+        );
 
-        // Tier cards: stagger fade up with slight delay after benefits
-        gsap.from('[data-tier-card]', {
-          y: 50, opacity: 0, duration: 0.9,
-          ease: 'power3.out',
-          stagger: 0.15,
-          scrollTrigger: { trigger: '[data-tier-grid]', start: 'top 80%' },
-        });
+        gsap.fromTo('[data-tier-card]',
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', stagger: 0.15,
+            scrollTrigger: { trigger: '[data-tier-grid]', start: 'top 85%' } }
+        );
       });
     }, containerRef);
 
@@ -96,8 +92,13 @@ const Sponsorship = () => {
   }, []);
 
   return (
-    <section ref={containerRef} id="sponsorship" className="py-20 bg-midnight-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={containerRef} id="sponsorship" className="relative py-20 bg-midnight-900 overflow-hidden">
+      {/* Background golf image */}
+      <div className="absolute inset-0 pointer-events-none">
+        <img src="/golf-club-green.png" alt="" className="w-full h-full object-cover opacity-[0.06]" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-ivory-50 mb-4 tracking-tight">

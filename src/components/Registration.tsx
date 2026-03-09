@@ -113,22 +113,22 @@ const Registration = () => {
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.from('[data-package-card]', {
-          y: 50, opacity: 0, duration: 0.9,
-          ease: 'power3.out', stagger: 0.15,
-          scrollTrigger: { trigger: '[data-package-grid]', start: 'top 80%' },
-        });
+        gsap.fromTo('[data-package-card]',
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', stagger: 0.15,
+            scrollTrigger: { trigger: '[data-package-grid]', start: 'top 85%' } }
+        );
 
         gsap.to('[data-package-popular]', {
           y: -6, duration: 2.5,
           ease: 'sine.inOut', repeat: -1, yoyo: true,
         });
 
-        gsap.from('[data-reg-form]', {
-          y: 30, opacity: 0, duration: 0.9,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: '[data-reg-form]', start: 'top 85%' },
-        });
+        gsap.fromTo('[data-reg-form]',
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+            scrollTrigger: { trigger: '[data-reg-form]', start: 'top 85%' } }
+        );
       });
     }, containerRef);
 
@@ -136,8 +136,13 @@ const Registration = () => {
   }, []);
 
   return (
-    <section ref={containerRef} id="registration" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={containerRef} id="registration" className="relative py-20 bg-white overflow-hidden">
+      {/* Background golf image */}
+      <div className="absolute inset-0 pointer-events-none">
+        <img src="/golf-course-aerial.png" alt="" className="w-full h-full object-cover opacity-[0.04]" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-midnight-900 mb-4 tracking-tight">
