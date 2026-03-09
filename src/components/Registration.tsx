@@ -136,17 +136,17 @@ const Registration = () => {
   }, []);
 
   return (
-    <section ref={containerRef} id="registration" className="py-24 bg-white">
+    <section ref={containerRef} id="registration" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-display font-bold text-4xl sm:text-5xl text-midnight-900 mb-4">
+        <div className="text-center mb-12">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-midnight-900 mb-4 tracking-tight">
             Register to Play
           </h2>
-          <div className="w-16 h-0.5 bg-sage-500 mx-auto mb-6" />
+          <div className="w-16 h-0.5 bg-sage-500 mx-auto mb-5" />
           <p className="text-midnight-700 text-lg max-w-2xl mx-auto">
-            Choose the package that works best for you. Every registration
-            helps us reach our $10,000 fundraising goal for families in need.
+            Spots fill fast and the energy is even better. Lock in your team, pick your package,
+            and get ready for the best round of golf you&apos;ll play all year.
           </p>
         </div>
 

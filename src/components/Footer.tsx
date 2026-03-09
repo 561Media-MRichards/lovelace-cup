@@ -23,7 +23,7 @@ const Footer = () => {
               <img
                 src="/LMC-Main.svg"
                 alt="Lovelace Memorial Cup"
-                className="h-10 w-auto object-contain"
+                className="h-14 w-auto object-contain"
               />
               <div>
                 <div className="font-display font-bold text-ivory-50">Lovelace Memorial Cup</div>

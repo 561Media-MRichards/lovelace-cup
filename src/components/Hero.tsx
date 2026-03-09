@@ -44,18 +44,13 @@ const Hero = () => {
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        // Stagger title elements upward with opacity
         tl.from('[data-hero-label]', { y: 30, opacity: 0, duration: 0.8 })
           .from('[data-hero-title]', { y: 40, opacity: 0, duration: 1 }, '-=0.5')
           .from('[data-hero-subtitle]', { y: 30, opacity: 0, duration: 0.9 }, '-=0.6')
           .from('[data-hero-tagline]', { y: 20, opacity: 0, duration: 0.8 }, '-=0.5')
-          // Photo: fade in + slight scale
           .from('[data-hero-photo]', { scale: 1.05, opacity: 0, duration: 1.2 }, '-=0.8')
-          // Countdown numbers
           .from('[data-hero-countdown] > div', { y: 20, opacity: 0, duration: 0.6, stagger: 0.1 }, '-=0.7')
-          // CTAs
           .from('[data-hero-ctas]', { y: 20, opacity: 0, duration: 0.7 }, '-=0.4')
-          // Event details bar: slide up from below
           .from('[data-hero-details]', { y: 40, opacity: 0, duration: 0.9 }, '-=0.4');
       });
     }, containerRef);
@@ -68,35 +63,34 @@ const Hero = () => {
       {/* Ambient glow */}
       <div className="absolute inset-0 bg-amber-glow opacity-40" />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-          {/* Left: Typography — 60% */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+          {/* Left: Typography */}
           <div className="lg:col-span-3 space-y-8">
-            <div className="space-y-4">
-              <span data-hero-label className="inline-block text-sage-300 text-sm font-semibold uppercase tracking-[0.3em] border border-sage-400/30 bg-sage-700/20 px-4 py-1.5 rounded-full">
+            <div className="space-y-5">
+              <span data-hero-label className="inline-block text-sage-300 text-sm font-semibold uppercase tracking-[0.25em] border border-sage-400/30 bg-sage-700/20 px-4 py-1.5 rounded-full">
                 3rd Annual Charity Golf Tournament
               </span>
               <h1 className="font-display">
-                <span data-hero-title className="block text-7xl sm:text-8xl lg:text-9xl font-bold text-ivory-50 leading-[0.9]">
-                  LOVELACE
-                </span>
-                <span data-hero-subtitle className="block text-5xl sm:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sage-300 to-amber-400 leading-tight mt-2">
+                <span data-hero-title className="block text-6xl sm:text-7xl lg:text-8xl font-bold text-ivory-50 leading-[0.95] tracking-tight">
+                  Lovelace
+                  <br />
                   Memorial Cup
                 </span>
               </h1>
-              <p data-hero-tagline className="text-ivory-200 text-xl sm:text-2xl font-display italic mt-4">
-                &ldquo;In a world full of hate... let&rsquo;s show some LOVE!&rdquo;
+              <p data-hero-tagline className="text-ivory-200 text-lg sm:text-xl max-w-lg leading-relaxed">
+                Every swing. Every dollar. Every heart on this course makes a difference.
               </p>
             </div>
 
             {/* Countdown */}
-            <div data-hero-countdown className="flex gap-4 sm:gap-6">
+            <div data-hero-countdown className="flex gap-5 sm:gap-8">
               {Object.entries(timeLeft).map(([unit, value]) => (
                 <div key={unit} className="text-center">
-                  <div className="font-display text-4xl sm:text-5xl font-bold text-ivory-50">
+                  <div className="font-display text-3xl sm:text-4xl font-bold text-ivory-50 tabular-nums">
                     {String(value).padStart(2, '0')}
                   </div>
-                  <div className="text-xs uppercase tracking-widest text-ivory-200 mt-1">
+                  <div className="text-[11px] uppercase tracking-widest text-ivory-200/70 mt-1">
                     {unit}
                   </div>
                 </div>
@@ -109,7 +103,7 @@ const Hero = () => {
                 href="#registration"
                 className="bg-sage-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-sage-400 transition-all duration-200 shadow-lg shadow-sage-500/25 text-center"
               >
-                Register Now
+                Grab Your Spot
               </a>
               <a
                 href="#sponsorship"
@@ -120,46 +114,44 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right: Chase photo — 40% */}
+          {/* Right: Chase photo */}
           <div className="lg:col-span-2 flex justify-center lg:justify-end">
             <div data-hero-photo className="relative">
-              <div className="w-72 sm:w-80 lg:w-96 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl shadow-black/50">
+              <div className="w-72 sm:w-80 lg:w-[22rem] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl shadow-black/50">
                 <img
                   src="/Chase black shirt 1.jpg"
                   alt="Chase Lovelace"
                   className="w-full h-full object-cover"
                 />
-                {/* Warm overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-midnight-950/60 via-transparent to-sage-500/10" />
               </div>
-              {/* Decorative border accent */}
               <div className="absolute -inset-3 border border-sage-400/20 rounded-3xl -z-10" />
             </div>
           </div>
         </div>
 
         {/* Event details bar */}
-        <div data-hero-details className="mt-16 glass rounded-2xl p-6">
+        <div data-hero-details className="mt-14 glass rounded-2xl p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div className="flex items-center justify-center gap-3">
               <Calendar className="w-5 h-5 text-sage-400" />
               <div>
-                <div className="text-ivory-200 text-sm uppercase tracking-wide">Date</div>
-                <div className="text-ivory-50 font-semibold text-lg">July 15, 2026</div>
+                <div className="text-ivory-200/70 text-xs uppercase tracking-wide">Date</div>
+                <div className="text-ivory-50 font-semibold">July 15, 2026</div>
               </div>
             </div>
             <div className="flex items-center justify-center gap-3 md:border-x md:border-midnight-700">
               <Clock className="w-5 h-5 text-sage-400" />
               <div>
-                <div className="text-ivory-200 text-sm uppercase tracking-wide">Shotgun Start</div>
-                <div className="text-ivory-50 font-semibold text-lg">8:00 AM</div>
+                <div className="text-ivory-200/70 text-xs uppercase tracking-wide">Shotgun Start</div>
+                <div className="text-ivory-50 font-semibold">8:00 AM</div>
               </div>
             </div>
             <div className="flex items-center justify-center gap-3">
               <MapPin className="w-5 h-5 text-sage-400" />
               <div>
-                <div className="text-ivory-200 text-sm uppercase tracking-wide">Venue</div>
-                <div className="text-ivory-50 font-semibold text-lg">Sycamore Ridge Golf Course</div>
+                <div className="text-ivory-200/70 text-xs uppercase tracking-wide">Venue</div>
+                <div className="text-ivory-50 font-semibold">Sycamore Ridge Golf Course</div>
               </div>
             </div>
           </div>

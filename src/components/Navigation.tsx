@@ -40,12 +40,12 @@ const Navigation = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-2">
+        <div className="flex justify-between items-center py-1">
           <Link href="#home" className="flex items-center">
             <img
               src="/LMC-Main.svg"
               alt="Lovelace Memorial Cup"
-              className="h-10 w-auto object-contain hover:scale-105 transition-transform duration-200"
+              className="h-14 sm:h-16 w-auto object-contain hover:scale-105 transition-transform duration-200"
             />
           </Link>
 

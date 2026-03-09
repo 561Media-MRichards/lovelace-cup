@@ -72,16 +72,16 @@ const Contact = () => {
   }, []);
 
   return (
-    <section ref={containerRef} id="contact" className="py-24 bg-ivory-100">
+    <section ref={containerRef} id="contact" className="py-20 bg-ivory-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-display font-bold text-4xl sm:text-5xl text-midnight-900 mb-4">
+        <div className="text-center mb-12">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-midnight-900 mb-4 tracking-tight">
             Get in Touch
           </h2>
-          <div className="w-16 h-0.5 bg-sage-500 mx-auto mb-6" />
+          <div className="w-16 h-0.5 bg-sage-500 mx-auto mb-5" />
           <p className="text-midnight-700 text-lg max-w-2xl mx-auto">
-            Questions about the tournament, registration, or sponsorship? We&apos;d love to hear from you.
+            Have questions about the tournament, want to volunteer, or just want to say hello? We&apos;d love to hear from you.
           </p>
         </div>
 

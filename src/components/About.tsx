@@ -20,22 +20,22 @@ const About = () => {
     {
       icon: <Heart className="w-6 h-6" />,
       title: 'Supporting Families',
-      description: 'Every dollar raised goes directly to families battling cancer, providing financial support and hope during their most challenging times.',
+      description: '100% of funds raised go directly to local families battling cancer. Your round of golf puts real money in the hands of people who need it most.',
     },
     {
       icon: <Trophy className="w-6 h-6" />,
       title: 'Golf with Purpose',
-      description: 'Enjoy a beautiful day of golf at Sycamore Ridge while making a meaningful difference in the lives of those who need it most.',
+      description: '18 holes at Sycamore Ridge, breakfast, lunch, contests, prizes, and the best company you\'ll find on a course. All for a cause that matters.',
     },
     {
       icon: <Users className="w-6 h-6" />,
       title: 'Community Unity',
-      description: 'Bringing together golfers, families, and supporters to create a network of love and support that extends far beyond the course.',
+      description: 'This isn\'t just a tournament. It\'s 80+ golfers, local businesses, and families coming together for a day no one forgets.',
     },
     {
       icon: <Ribbon className="w-6 h-6" />,
       title: 'Memorial Legacy',
-      description: 'Honoring the memory of loved ones while creating a lasting impact through charitable giving and community support.',
+      description: 'Chase Lovelace brought people together everywhere he went. This tournament keeps that tradition alive, one year at a time.',
     },
   ];
 
@@ -45,7 +45,6 @@ const About = () => {
     { year: '2026', label: 'Year 3', detail: '$10K fundraising goal' },
   ];
 
-  // GSAP scroll-triggered animations
   useEffect(() => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
@@ -110,26 +109,23 @@ const About = () => {
   }, []);
 
   return (
-    <section ref={containerRef} id="about" className="py-24 bg-ivory-100">
+    <section ref={containerRef} id="about" className="py-20 bg-ivory-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mission Quote */}
-        <div data-about-mission className="text-center mb-20 max-w-4xl mx-auto">
-          <div className="relative">
-            <span className="absolute -top-8 -left-4 text-8xl text-sage-500/20 font-display">&ldquo;</span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-900 leading-tight">
-              More than a tournament — a celebration of{' '}
-              <span className="text-sage-600">life, love,</span> and community
-            </h2>
-            <span className="absolute -bottom-8 -right-4 text-8xl text-sage-500/20 font-display">&rdquo;</span>
-          </div>
-          <p className="text-midnight-700 text-lg mt-8 max-w-2xl mx-auto">
-            The Lovelace Memorial Cup brings together golfers, families, and supporters
-            to make a real difference for those facing cancer.
+        <div data-about-mission className="text-center mb-14 max-w-3xl mx-auto">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-900 leading-tight tracking-tight">
+            A Day on the Course.
+            <br />
+            <span className="text-sage-600">A Lifetime of Impact.</span>
+          </h2>
+          <p className="text-midnight-700 text-lg mt-6 max-w-2xl mx-auto">
+            What started as one round in Chase&apos;s honor has grown into our community&apos;s biggest day of giving.
+            Grab your clubs, rally your team, and help us raise $10K for families fighting cancer.
           </p>
         </div>
 
         {/* Stats Row */}
-        <div className="bg-sage-700 rounded-2xl p-8 mb-20">
+        <div className="bg-sage-700 rounded-2xl p-8 mb-14">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => (
               <div key={index}>
@@ -145,18 +141,18 @@ const About = () => {
         </div>
 
         {/* Features Grid */}
-        <div data-feature-grid className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
+        <div data-feature-grid className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-14">
           {features.map((feature, index) => (
             <div
               key={index}
               data-feature-card
-              className="card-light rounded-xl p-8 transition-all duration-300"
+              className="card-light rounded-xl p-7 transition-all duration-300"
             >
-              <div className="text-sage-600 mb-4">{feature.icon}</div>
-              <h3 className="font-display font-semibold text-xl text-midnight-900 mb-3">
+              <div className="text-sage-600 mb-3">{feature.icon}</div>
+              <h3 className="font-display font-semibold text-lg text-midnight-900 mb-2">
                 {feature.title}
               </h3>
-              <p className="text-midnight-700 leading-relaxed">
+              <p className="text-midnight-700 leading-relaxed text-[15px]">
                 {feature.description}
               </p>
             </div>
@@ -164,18 +160,18 @@ const About = () => {
         </div>
 
         {/* Memorial Section */}
-        <div className="card-light rounded-3xl p-8 md:p-12 mb-20">
-          <div className="text-center mb-10">
-            <h3 className="font-display font-bold text-3xl sm:text-4xl text-midnight-900 mb-2">
+        <div className="card-light rounded-2xl p-8 md:p-10 mb-14">
+          <div className="text-center mb-8">
+            <h3 className="font-display font-bold text-2xl sm:text-3xl text-midnight-900 mb-2">
               In Loving Memory of Chase Lovelace
             </h3>
-            <div className="w-16 h-0.5 bg-sage-500 mx-auto mt-4" />
+            <div className="w-16 h-0.5 bg-sage-500 mx-auto mt-3" />
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div className="flex justify-center">
               <div data-memorial-photo className="relative">
-                <div className="w-72 sm:w-80 aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
+                <div className="w-64 sm:w-72 aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
                   <img
                     src="/Chase drum smiling front.jpg"
                     alt="Chase Lovelace"
@@ -187,42 +183,43 @@ const About = () => {
               </div>
             </div>
 
-            <div data-memorial-text className="space-y-6">
-              <p className="text-midnight-800 text-lg leading-relaxed">
-                Chase Lovelace was a vibrant soul who brought joy and music to everyone around him.
-                His passion for life, infectious smile, and caring heart touched countless lives in our community.
+            <div data-memorial-text className="space-y-5">
+              <p className="text-midnight-800 text-[15px] leading-relaxed">
+                Chase Lovelace lit up every room, every stage, and every conversation.
+                His infectious smile and generous heart made him the kind of person you never forget.
+                He lived to bring people together, and he never met a stranger.
               </p>
-              <p className="text-midnight-800 text-lg leading-relaxed">
-                Though cancer took him from us too soon, Chase&apos;s spirit lives on through this memorial
-                tournament. His love for bringing people together and supporting others in their time
-                of need continues to inspire our mission.
+              <p className="text-midnight-800 text-[15px] leading-relaxed">
+                When cancer took Chase from us too soon, our community made a promise: his spirit
+                of love and connection would carry on. The Lovelace Memorial Cup is that promise in action.
+                Every year, every team, and every dollar keeps his legacy alive.
               </p>
-              <div className="border-l-2 border-sage-500 pl-6 py-2">
-                <p className="text-midnight-700 italic font-display text-lg">
-                  &ldquo;Chase believed in the power of community and the importance of showing love to those
-                  who need it most. This tournament carries forward his legacy of compassion and hope.&rdquo;
+              <div className="border-l-2 border-sage-500 pl-5 py-1">
+                <p className="text-midnight-700 italic text-[15px]">
+                  &ldquo;Chase believed the best thing you could do was show up for people.
+                  That&apos;s exactly what this tournament is about.&rdquo;
                 </p>
               </div>
             </div>
           </div>
 
           {/* Tournament Timeline */}
-          <div data-timeline className="mt-16 pt-12 border-t border-ivory-200">
-            <h4 className="font-display font-semibold text-xl text-midnight-900 text-center mb-8">
+          <div data-timeline className="mt-12 pt-8 border-t border-ivory-200">
+            <h4 className="font-display font-semibold text-lg text-midnight-900 text-center mb-6">
               Our Journey
             </h4>
             <div className="flex flex-col md:flex-row items-center justify-center gap-8">
               {timeline.map((item, index) => (
                 <div key={index} data-timeline-item className="flex items-center gap-4">
                   <div className={`text-center ${index === timeline.length - 1 ? 'opacity-100' : 'opacity-70'}`}>
-                    <div className={`font-display text-3xl font-bold ${index === timeline.length - 1 ? 'text-sage-600' : 'text-midnight-800'}`}>
+                    <div className={`font-display text-2xl font-bold ${index === timeline.length - 1 ? 'text-sage-600' : 'text-midnight-800'}`}>
                       {item.year}
                     </div>
                     <div className="text-sage-600 text-xs uppercase tracking-widest">{item.label}</div>
                     <div className="text-midnight-700 text-sm mt-1">{item.detail}</div>
                   </div>
                   {index < timeline.length - 1 && (
-                    <div className="hidden md:block w-16 h-px bg-sage-300" />
+                    <div className="hidden md:block w-12 h-px bg-sage-300" />
                   )}
                 </div>
               ))}
@@ -230,33 +227,34 @@ const About = () => {
           </div>
         </div>
 
-        {/* Our Story — sage accent section */}
-        <div data-our-story className="bg-sage-600 rounded-2xl p-8 sm:p-12">
-          <div className="max-w-4xl mx-auto text-center">
-            <h3 className="font-display font-bold text-3xl sm:text-4xl text-white mb-8">
+        {/* Our Story */}
+        <div data-our-story className="bg-sage-600 rounded-2xl p-8 sm:p-10 mb-14">
+          <div className="max-w-3xl mx-auto text-center">
+            <h3 className="font-display font-bold text-2xl sm:text-3xl text-white mb-6">
               Our Story
             </h3>
-            <div className="space-y-6 text-lg leading-relaxed text-sage-100">
+            <div className="space-y-5 text-[15px] leading-relaxed text-sage-100">
               <p>
-                Founded in memory of a beloved community member, the Lovelace Memorial Cup
-                represents the power of coming together in times of need. When families face
-                the overwhelming challenge of cancer, they shouldn&apos;t have to face it alone.
+                Three years ago, a group of friends picked up their clubs and made a bet:
+                that one day of golf could change lives. That first tournament raised enough
+                to support two families in crisis. By year two, we had 20 teams and a growing
+                list of sponsors who believed in the mission.
               </p>
               <p>
-                Through this annual tournament, we&apos;ve created a tradition that combines our
-                love of golf with our commitment to supporting one another. Every participant,
-                sponsor, and volunteer contributes to a legacy of love that grows stronger each year.
+                Now in its third year, the Lovelace Memorial Cup has become one of our community&apos;s
+                most anticipated events. This July, we&apos;re setting our sights on $10K and proving
+                once again that a great day on the course can do a whole lot of good.
               </p>
-              <blockquote className="font-display text-2xl font-bold italic text-white/90 border-l-4 border-amber-400 pl-6 my-8 text-left">
-                &ldquo;In a world full of hate... let&apos;s show some LOVE!&rdquo;
+              <blockquote className="font-display text-xl font-bold italic text-white/90 border-l-4 border-amber-400 pl-5 my-6 text-left">
+                &ldquo;Where the love of golf meets the power of giving.&rdquo;
               </blockquote>
             </div>
           </div>
         </div>
 
         {/* CTA */}
-        <div className="text-center mt-16">
-          <h3 className="font-display font-semibold text-2xl text-midnight-900 mb-6">
+        <div className="text-center">
+          <h3 className="font-display font-semibold text-xl text-midnight-900 mb-5">
             Ready to Make a Difference?
           </h3>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

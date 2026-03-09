@@ -96,22 +96,22 @@ const Sponsorship = () => {
   }, []);
 
   return (
-    <section ref={containerRef} id="sponsorship" className="py-24 bg-midnight-900">
+    <section ref={containerRef} id="sponsorship" className="py-20 bg-midnight-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-display font-bold text-4xl sm:text-5xl text-ivory-50 mb-4">
+        <div className="text-center mb-12">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-ivory-50 mb-4 tracking-tight">
             Sponsorship Opportunities
           </h2>
-          <div className="w-16 h-0.5 bg-amber-500 mx-auto mb-6" />
+          <div className="w-16 h-0.5 bg-sage-400 mx-auto mb-5" />
           <p className="text-ivory-200 text-lg max-w-2xl mx-auto">
-            Partner with us to make a meaningful impact while gaining valuable exposure
-            for your business.
+            Put your brand in front of 80+ golfers and the entire community behind them.
+            Every sponsorship tier includes real visibility and the chance to be part of something people remember.
           </p>
         </div>
 
         {/* Why Sponsor */}
-        <div data-benefit-grid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div data-benefit-grid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
           {benefits.map((benefit, index) => (
             <div key={index} data-benefit-card className="glass rounded-xl p-6 text-center">
               <div className="text-sage-400 mb-4 flex justify-center">{benefit.icon}</div>
