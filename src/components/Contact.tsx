@@ -1,303 +1,230 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Mail, MapPin, Calendar, Loader2 } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
-  const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     subject: '',
-    message: ''
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Create mailto link with form data
+
     const subject = encodeURIComponent(`Lovelace Memorial Cup: ${formData.subject}`);
     const body = encodeURIComponent(
-      `Name: ${formData.name}\n` +
-      `Email: ${formData.email}\n` +
-      `Phone: ${formData.phone}\n\n` +
-      `Message:\n${formData.message}`
+      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`
     );
-    
+
     window.location.href = `mailto:wolfersway@gmail.com?subject=${subject}&body=${body}`;
-    
-    // Reset form after a delay
+
     setTimeout(() => {
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
-      });
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
       setIsSubmitting(false);
       setSubmitStatus('success');
-      
-      // Reset success message after 3 seconds
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 3000);
+      setTimeout(() => setSubmitStatus('idle'), 3000);
     }, 1000);
   };
 
   const contactInfo = [
-    {
-      icon: '📧',
-      title: 'Email Us',
-      content: 'wolfersway@gmail.com',
-      link: 'mailto:wolfersway@gmail.com'
-    },
-    {
-      icon: '🏌️',
-      title: 'Golf Course',
-      content: 'Sycamore Ridge Golf Course',
-      link: 'https://maps.google.com/?q=Sycamore+Ridge+Golf+Course'
-    },
-    {
-      icon: '📅',
-      title: 'Event Date',
-      content: 'August 15th, 2025 at 8:00 AM',
-      link: null
-    },
-    {
-      icon: '🎯',
-      title: 'Registration',
-      content: 'Eventbrite Registration',
-      link: 'https://www.eventbrite.com/e/lovelacememorialcup2-tickets-1403964378249'
-    }
+    { icon: <Mail className="w-5 h-5" />, title: 'Email Us', content: 'wolfersway@gmail.com', link: 'mailto:wolfersway@gmail.com' },
+    { icon: <MapPin className="w-5 h-5" />, title: 'Golf Course', content: 'Sycamore Ridge Golf Course', link: 'https://maps.google.com/?q=Sycamore+Ridge+Golf+Course' },
+    { icon: <Calendar className="w-5 h-5" />, title: 'Event Date', content: 'July 15, 2026 at 8:00 AM', link: null },
   ];
 
+  // GSAP scroll-triggered animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        // Contact info cards: slide in from left with stagger
+        gsap.from('[data-contact-card]', {
+          x: -40, opacity: 0, duration: 0.8,
+          ease: 'power3.out',
+          stagger: 0.15,
+          scrollTrigger: { trigger: '[data-contact-left]', start: 'top 80%' },
+        });
+
+        // Form: slide in from right
+        gsap.from('[data-contact-form]', {
+          x: 40, opacity: 0, duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: '[data-contact-form]', start: 'top 80%' },
+        });
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="contact" className="py-20 bg-white">
+    <section ref={containerRef} id="contact" className="py-24 bg-midnight-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+        {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="font-display font-bold text-4xl sm:text-5xl text-forest-900 mb-6">
+          <h2 className="font-display font-bold text-4xl sm:text-5xl text-ivory-50 mb-4">
             Get in Touch
           </h2>
-          <div className="w-24 h-1 bg-golf-gradient mx-auto mb-8 rounded-full"></div>
-          <p className="text-xl text-forest-700 max-w-3xl mx-auto leading-relaxed">
-            Have questions about the tournament, registration, or sponsorship opportunities? 
-            We&apos;d love to hear from you and help you get involved.
+          <div className="w-16 h-0.5 bg-amber-500 mx-auto mb-6" />
+          <p className="text-ivory-200 text-lg max-w-2xl mx-auto">
+            Questions about the tournament, registration, or sponsorship? We&apos;d love to hear from you.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <div>
-            <h3 className="font-display font-semibold text-2xl text-forest-900 mb-8">
-              Contact Information
-            </h3>
-            
-            <div className="space-y-6 mb-8">
-              {contactInfo.map((info, index) => (
-                <div key={index} className="flex items-start space-x-4">
-                  <div className="text-2xl">{info.icon}</div>
-                  <div>
-                    <h4 className="font-semibold text-forest-900 mb-1">{info.title}</h4>
-                    {info.link ? (
-                      <a
-                        href={info.link}
-                        className="text-forest-700 hover:text-gold-600 transition-colors duration-200"
-                        target={info.link.startsWith('http') ? '_blank' : undefined}
-                        rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      >
-                        {info.content}
-                      </a>
-                    ) : (
-                      <p className="text-forest-700">{info.content}</p>
-                    )}
-                  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+          {/* Contact Cards — left */}
+          <div data-contact-left className="lg:col-span-2 space-y-6">
+            {contactInfo.map((info, index) => (
+              <div key={index} data-contact-card className="glass rounded-xl p-6 flex items-start gap-4">
+                <div className="text-amber-500 mt-0.5">{info.icon}</div>
+                <div>
+                  <h4 className="font-semibold text-ivory-50 mb-1">{info.title}</h4>
+                  {info.link ? (
+                    <a
+                      href={info.link}
+                      className="text-ivory-200 hover:text-amber-400 transition-colors"
+                      target={info.link.startsWith('http') ? '_blank' : undefined}
+                      rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    >
+                      {info.content}
+                    </a>
+                  ) : (
+                    <p className="text-ivory-200">{info.content}</p>
+                  )}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
 
-            {/* Quick Links */}
-            <div className="bg-cream-50 rounded-xl p-6">
-              <h4 className="font-display font-semibold text-xl text-forest-900 mb-4">
+            {/* Quick Actions */}
+            <div data-contact-card className="glass rounded-xl p-6">
+              <h4 className="font-display font-semibold text-lg text-ivory-50 mb-4">
                 Quick Actions
               </h4>
               <div className="space-y-3">
                 <a
-                  href="https://www.eventbrite.com/e/lovelacememorialcup2-tickets-1403964378249"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full bg-forest-900 text-white text-center py-3 rounded-full font-semibold hover:bg-forest-700 transition-colors duration-200"
+                  href="#registration"
+                  className="block w-full bg-amber-500 text-midnight-950 text-center py-3 rounded-full font-semibold hover:bg-amber-400 transition-colors"
                 >
-                  🏌️ Register Now
+                  Register Now
                 </a>
                 <a
                   href="mailto:wolfersway@gmail.com?subject=Sponsorship Inquiry"
-                  className="block w-full bg-gold-500 text-forest-900 text-center py-3 rounded-full font-semibold hover:bg-gold-400 transition-colors duration-200"
+                  className="block w-full border border-amber-500/30 text-amber-400 text-center py-3 rounded-full font-semibold hover:bg-amber-500 hover:text-midnight-950 transition-all"
                 >
-                  💛 Become a Sponsor
+                  Become a Sponsor
                 </a>
                 <a
                   href="mailto:wolfersway@gmail.com?subject=Volunteer Inquiry"
-                  className="block w-full border-2 border-forest-900 text-forest-900 text-center py-3 rounded-full font-semibold hover:bg-forest-900 hover:text-white transition-all duration-200"
+                  className="block w-full border border-midnight-700 text-ivory-200 text-center py-3 rounded-full font-semibold hover:border-ivory-200/50 hover:text-ivory-50 transition-all"
                 >
-                  🤝 Volunteer to Help
+                  Volunteer to Help
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div>
-            <h3 className="font-display font-semibold text-2xl text-forest-900 mb-8">
-              Send Us a Message
-            </h3>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {/* Form — right */}
+          <div data-contact-form className="lg:col-span-3">
+            <div className="glass rounded-2xl p-8">
+              <h3 className="font-display font-semibold text-xl text-ivory-50 mb-6">
+                Send Us a Message
+              </h3>
+
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="contact-name" className="block text-sm font-medium text-ivory-200 mb-1.5">Name *</label>
+                    <input
+                      type="text" id="contact-name" name="name" required
+                      value={formData.name} onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-midnight-950 border border-midnight-700 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
+                      placeholder="Your full name"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-email" className="block text-sm font-medium text-ivory-200 mb-1.5">Email *</label>
+                    <input
+                      type="email" id="contact-email" name="email" required
+                      value={formData.email} onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-midnight-950 border border-midnight-700 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="contact-phone" className="block text-sm font-medium text-ivory-200 mb-1.5">Phone</label>
+                    <input
+                      type="tel" id="contact-phone" name="phone"
+                      value={formData.phone} onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-midnight-950 border border-midnight-700 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
+                      placeholder="(555) 123-4567"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-subject" className="block text-sm font-medium text-ivory-200 mb-1.5">Subject *</label>
+                    <select
+                      id="contact-subject" name="subject" required
+                      value={formData.subject} onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-midnight-950 border border-midnight-700 rounded-lg text-ivory-50 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
+                    >
+                      <option value="">Select a topic</option>
+                      <option value="Registration Question">Registration Question</option>
+                      <option value="Sponsorship Inquiry">Sponsorship Inquiry</option>
+                      <option value="Volunteer Interest">Volunteer Interest</option>
+                      <option value="General Question">General Question</option>
+                    </select>
+                  </div>
+                </div>
+
                 <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-forest-900 mb-2">
-                    Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="Your full name"
+                  <label htmlFor="contact-message" className="block text-sm font-medium text-ivory-200 mb-1.5">Message *</label>
+                  <textarea
+                    id="contact-message" name="message" required rows={5}
+                    value={formData.message} onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-midnight-950 border border-midnight-700 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors resize-none"
+                    placeholder="Tell us how we can help..."
                   />
                 </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-forest-900 mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="your@email.com"
-                  />
-                </div>
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-semibold text-forest-900 mb-2">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="(555) 123-4567"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-semibold text-forest-900 mb-2">
-                    Subject *
-                  </label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    required
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent transition-colors duration-200"
-                  >
-                    <option value="">Select a topic</option>
-                    <option value="Registration Question">Registration Question</option>
-                    <option value="Sponsorship Inquiry">Sponsorship Inquiry</option>
-                    <option value="Volunteer Interest">Volunteer Interest</option>
-                    <option value="General Question">General Question</option>
-                    <option value="Media Inquiry">Media Inquiry</option>
-                  </select>
-                </div>
-              </div>
+                {submitStatus === 'success' && (
+                  <div className="bg-amber-500/10 border border-amber-500/30 text-amber-400 px-4 py-3 rounded-lg text-sm">
+                    Your message will open in your email client. Thank you!
+                  </div>
+                )}
 
-              <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-forest-900 mb-2">
-                  Message *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={6}
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent transition-colors duration-200 resize-vertical"
-                  placeholder="Tell us how we can help you or how you'd like to get involved..."
-                ></textarea>
-              </div>
-
-              {mounted && submitStatus === 'success' && (
-                <div className="bg-forest-100 border border-forest-300 text-forest-800 px-4 py-3 rounded-lg">
-                  ✅ Thank you! Your message will open in your email client.
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full py-4 px-6 rounded-full font-bold text-lg transition-all duration-200 ${
-                  isSubmitting
-                    ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
-                    : 'bg-forest-900 text-white hover:bg-forest-700 hover:transform hover:scale-105'
-                }`}
-              >
-                {isSubmitting ? '📧 Opening Email Client...' : '📧 Send Message'}
-              </button>
-            </form>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-amber-500 text-midnight-950 py-4 rounded-full font-bold text-lg hover:bg-amber-400 transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {isSubmitting ? (
+                    <><Loader2 className="w-5 h-5 animate-spin" /> Sending...</>
+                  ) : (
+                    'Send Message'
+                  )}
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
-
-        {/* Call to Action */}
-        <div className="mt-16 text-center bg-cream-50 rounded-2xl p-8">
-          <h3 className="font-display font-bold text-3xl text-forest-900 mb-4">
-            Ready to Join Us?
-          </h3>
-          <p className="text-lg text-forest-700 mb-8 max-w-2xl mx-auto">
-            Don&apos;t wait—registration spots are filling up quickly! Secure your place in 
-            this meaningful tournament and help us support families in need.
-          </p>
-          <a
-            href="https://www.eventbrite.com/e/lovelacememorialcup2-tickets-1403964378249"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center bg-gold-500 text-forest-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-gold-400 transform hover:scale-105 transition-all duration-200 shadow-lg"
-          >
-            🏌️ Register Today
-            <svg className="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </a>
         </div>
       </div>
     </section>

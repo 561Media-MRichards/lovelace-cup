@@ -9,56 +9,33 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Forest Greens inspired by Malbon Golf
-        forest: {
-          900: '#1B4332', // Primary forest green
-          700: '#4A7C59', // Lighter forest green
-          600: '#5D8B6C',
-          400: '#7BA283',
-          200: '#A8C4A2',
+        midnight: {
+          950: '#0A0E17',
+          900: '#111827',
+          800: '#1E293B',
+          700: '#334155',
         },
-        // Memorial Gold
-        gold: {
-          500: '#D4A574',
-          400: '#E0B889',
-          300: '#ECCC9E',
-          200: '#F1D5AD',
-          100: '#F6E0C1',
+        amber: {
+          300: '#FCD34D',
+          400: '#FBBF24',
+          500: '#F59E0B',
         },
-        // Cream backgrounds
-        cream: {
-          50: '#F7F3E9',
-          100: '#F5F0E3',
-          200: '#F1EBDB',
+        ivory: {
+          50: '#FEFDFB',
+          100: '#FAF9F6',
+          200: '#F0EDE6',
         },
-        // Golf-themed colors
-        fairway: '#2D5A27',
-        tee: '#8B4513',
-        flag: '#DC143C',
+        rose: {
+          500: '#F43F5E',
+        },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Poppins', 'system-ui', 'sans-serif'],
-      },
-      animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.6s ease-out',
-        'bounce-slow': 'bounce 2s infinite',
-        'pulse-slow': 'pulse 3s ease-in-out infinite',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
+        display: ['var(--font-playfair)', 'serif'],
+        sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
-        'golf-gradient': 'linear-gradient(135deg, #1B4332 0%, #4A7C59 50%, #D4A574 100%)',
-        'memorial-gradient': 'linear-gradient(45deg, #D4A574 0%, #F7F3E9 100%)',
+        'hero-gradient': 'linear-gradient(135deg, #0A0E17 0%, #1E293B 50%, #0A0E17 100%)',
+        'amber-glow': 'radial-gradient(ellipse at center, rgba(245,158,11,0.15) 0%, transparent 70%)',
       },
     },
   },

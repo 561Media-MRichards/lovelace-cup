@@ -1,18 +1,23 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentY = window.scrollY;
+      setIsScrolled(currentY > 50);
+      setIsHidden(currentY > 300 && currentY > lastScrollY.current);
+      lastScrollY.current = currentY;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -26,49 +31,44 @@ const Navigation = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isHidden ? '-translate-y-full' : 'translate-y-0'
+      } ${
         isScrolled
-          ? 'bg-forest-900/95 backdrop-blur-md shadow-lg'
+          ? 'glass-strong shadow-lg shadow-black/20'
           : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-0.5">
-          {/* Logo/Brand */}
+        <div className="flex justify-between items-center py-2">
           <Link href="#home" className="flex items-center">
-            <div className="flex items-center justify-center">
-              <img 
-                src="/LMC-Main.svg" 
-                alt="Lovelace Memorial Cup" 
-                className="h-32 w-auto object-contain filter drop-shadow-lg hover:scale-105 transition-transform duration-200"
-              />
-            </div>
+            <img
+              src="/LMC-Main.svg"
+              alt="Lovelace Memorial Cup"
+              className="h-10 w-auto object-contain hover:scale-105 transition-transform duration-200"
+            />
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-white hover:text-gold-300 transition-colors duration-200 font-medium"
+                className="text-ivory-100 hover:text-amber-400 transition-colors duration-200 text-sm font-medium uppercase tracking-widest"
               >
                 {item.label}
               </Link>
             ))}
             <a
-              href="https://www.eventbrite.com/e/lovelacememorialcup2-tickets-1403964378249"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-gold-500 text-forest-900 px-6 py-2 rounded-full font-semibold hover:bg-gold-400 hover:text-forest-700 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              href="#registration"
+              className="bg-amber-500 text-midnight-950 px-6 py-2.5 rounded-full font-semibold text-sm uppercase tracking-wide hover:bg-amber-400 transition-all duration-200 shadow-lg shadow-amber-500/20"
             >
               Register Now
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-white p-2"
+            className="md:hidden text-ivory-50 p-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle mobile menu"
           >
@@ -92,7 +92,6 @@ const Navigation = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
         <div
           className={`md:hidden transition-all duration-300 overflow-hidden ${
             isMobileMenuOpen ? 'max-h-96 pb-4' : 'max-h-0'
@@ -103,17 +102,16 @@ const Navigation = () => {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-white hover:text-gold-300 transition-colors duration-200 font-medium py-2"
+                className="text-ivory-100 hover:text-amber-400 transition-colors duration-200 font-medium py-2 uppercase tracking-widest text-sm"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}
               </Link>
             ))}
             <a
-              href="https://www.eventbrite.com/e/lovelacememorialcup2-tickets-1403964378249"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-gold-500 text-forest-900 px-6 py-3 rounded-full font-semibold hover:bg-gold-400 hover:text-forest-700 transition-all duration-200 text-center transform hover:scale-105 shadow-lg hover:shadow-xl"
+              href="#registration"
+              className="bg-amber-500 text-midnight-950 px-6 py-3 rounded-full font-semibold text-center uppercase tracking-wide hover:bg-amber-400 transition-all duration-200"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
               Register Now
             </a>

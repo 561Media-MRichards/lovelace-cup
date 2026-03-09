@@ -1,8 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Calendar, Clock, MapPin } from 'lucide-react';
+import gsap from 'gsap';
 
 const Hero = () => {
+  const containerRef = useRef<HTMLElement>(null);
+
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -11,8 +15,8 @@ const Hero = () => {
   });
 
   useEffect(() => {
-    const eventDate = new Date('2025-08-15T08:00:00');
-    
+    const eventDate = new Date('2026-07-15T08:00:00');
+
     const updateCountdown = () => {
       const now = new Date().getTime();
       const distance = eventDate.getTime() - now;
@@ -29,102 +33,143 @@ const Hero = () => {
 
     updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
-
     return () => clearInterval(interval);
   }, []);
 
+  // GSAP entrance animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+        // Stagger title elements upward with opacity
+        tl.from('[data-hero-label]', { y: 30, opacity: 0, duration: 0.8 })
+          .from('[data-hero-title]', { y: 40, opacity: 0, duration: 1 }, '-=0.5')
+          .from('[data-hero-subtitle]', { y: 30, opacity: 0, duration: 0.9 }, '-=0.6')
+          .from('[data-hero-tagline]', { y: 20, opacity: 0, duration: 0.8 }, '-=0.5')
+          // Photo: fade in + slight scale
+          .from('[data-hero-photo]', { scale: 1.05, opacity: 0, duration: 1.2 }, '-=0.8')
+          // Countdown numbers
+          .from('[data-hero-countdown] > div', { y: 20, opacity: 0, duration: 0.6, stagger: 0.1 }, '-=0.7')
+          // CTAs
+          .from('[data-hero-ctas]', { y: 20, opacity: 0, duration: 0.7 }, '-=0.4')
+          // Event details bar: slide up from below
+          .from('[data-hero-details]', { y: 40, opacity: 0, duration: 0.9 }, '-=0.4');
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center bg-golf-gradient overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 fairway-texture opacity-20"></div>
-      
-      {/* Decorative Golf Ball */}
-      <div className="absolute top-20 right-20 w-20 h-20 bg-white rounded-full golf-ball-pattern opacity-10 animate-bounce-slow hidden lg:block"></div>
-      
-      {/* Main Content */}
-      <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto pt-20">
-        {/* Main Heading */}
-        <div className="animate-fade-in">
-          <h1 className="font-display font-bold text-4xl sm:text-6xl lg:text-7xl mb-6 leading-tight">
-            Lovelace
-            <span className="block text-gold-300 animate-pulse-slow">Memorial Cup</span>
-          </h1>
-          
-          {/* Tagline */}
-          <div className="text-gold-200 text-xl sm:text-2xl lg:text-3xl mb-8 font-light italic">
-            &quot;In a world full of hate... let&apos;s show some LOVE!&quot;
-          </div>
-        </div>
+    <section ref={containerRef} id="home" className="relative min-h-screen flex items-center bg-hero-gradient overflow-hidden">
+      {/* Ambient glow */}
+      <div className="absolute inset-0 bg-amber-glow opacity-40" />
 
-        {/* Event Details */}
-        <div className="animate-slide-up bg-white/10 backdrop-blur-md rounded-2xl p-8 mb-12 border border-gold-300/30">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="space-y-2">
-              <div className="text-gold-300 text-lg font-semibold">📅 Date</div>
-              <div className="text-2xl font-bold">August 15th, 2025</div>
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+          {/* Left: Typography — 60% */}
+          <div className="lg:col-span-3 space-y-8">
+            <div className="space-y-4">
+              <span data-hero-label className="inline-block text-amber-500 text-sm font-semibold uppercase tracking-[0.3em] border border-amber-500/30 px-4 py-1.5 rounded-full">
+                3rd Annual
+              </span>
+              <h1 className="font-display">
+                <span data-hero-title className="block text-7xl sm:text-8xl lg:text-9xl font-bold text-ivory-50 leading-[0.9]">
+                  LOVELACE
+                </span>
+                <span data-hero-subtitle className="block text-5xl sm:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300 leading-tight mt-2">
+                  Memorial Cup
+                </span>
+              </h1>
+              <p data-hero-tagline className="text-ivory-200 text-xl sm:text-2xl font-display italic mt-4">
+                &ldquo;In a world full of hate... let&rsquo;s show some LOVE!&rdquo;
+              </p>
             </div>
-            <div className="space-y-2">
-              <div className="text-gold-300 text-lg font-semibold">⏰ Time</div>
-              <div className="text-2xl font-bold">8:00 AM</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-gold-300 text-lg font-semibold">🏌️ Venue</div>
-              <div className="text-2xl font-bold">Sycamore Ridge</div>
-              <div className="text-lg">Golf Course</div>
-            </div>
-          </div>
-        </div>
 
-        {/* Countdown Timer */}
-        <div className="mb-12 animate-slide-up">
-          <h2 className="text-2xl font-semibold mb-6 text-gold-200">Tournament Begins In</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-            {Object.entries(timeLeft).map(([unit, value]) => (
-              <div key={unit} className="bg-forest-900/50 backdrop-blur-md rounded-lg p-4 border border-gold-300/30">
-                <div className="text-3xl font-bold text-gold-300">{value}</div>
-                <div className="text-sm uppercase tracking-wide text-gold-200">
-                  {unit}
+            {/* Countdown */}
+            <div data-hero-countdown className="flex gap-4 sm:gap-6">
+              {Object.entries(timeLeft).map(([unit, value]) => (
+                <div key={unit} className="text-center">
+                  <div className="font-display text-4xl sm:text-5xl font-bold text-ivory-50">
+                    {String(value).padStart(2, '0')}
+                  </div>
+                  <div className="text-xs uppercase tracking-widest text-ivory-200 mt-1">
+                    {unit}
+                  </div>
                 </div>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div data-hero-ctas className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="#registration"
+                className="bg-amber-500 text-midnight-950 px-8 py-4 rounded-full text-lg font-bold hover:bg-amber-400 transition-all duration-200 shadow-lg shadow-amber-500/25 text-center"
+              >
+                Register Now
+              </a>
+              <a
+                href="#sponsorship"
+                className="border-2 border-ivory-200/30 text-ivory-50 px-8 py-4 rounded-full text-lg font-semibold hover:border-amber-400 hover:text-amber-400 transition-all duration-200 text-center"
+              >
+                Become a Sponsor
+              </a>
+            </div>
+          </div>
+
+          {/* Right: Chase photo — 40% */}
+          <div className="lg:col-span-2 flex justify-center lg:justify-end">
+            <div data-hero-photo className="relative">
+              <div className="w-72 sm:w-80 lg:w-96 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl shadow-black/50">
+                <img
+                  src="/Chase black shirt 1.jpg"
+                  alt="Chase Lovelace"
+                  className="w-full h-full object-cover"
+                />
+                {/* Warm overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-950/60 via-transparent to-amber-500/10" />
               </div>
-            ))}
+              {/* Decorative border accent */}
+              <div className="absolute -inset-3 border border-amber-500/20 rounded-3xl -z-10" />
+            </div>
           </div>
         </div>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up">
-          <a
-            href="https://www.eventbrite.com/e/lovelacememorialcup2-tickets-1403964378249"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-gold-500 text-forest-900 px-8 py-4 rounded-full text-lg font-bold hover:bg-gold-400 hover:text-forest-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-2xl"
-          >
-            🏌️ Register to Play
-          </a>
-          <a
-            href="#sponsorship"
-            className="border-2 border-gold-300 text-gold-300 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gold-300 hover:text-forest-900 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-2xl"
-          >
-            💛 Sponsor the Event
-          </a>
-        </div>
-
-        {/* Mission Statement */}
-        <div className="mt-16 animate-fade-in">
-          <div className="bg-forest-900/30 backdrop-blur-md rounded-xl p-6 border border-gold-300/20 max-w-3xl mx-auto">
-            <h3 className="text-xl font-semibold mb-4 text-gold-300">Our Mission</h3>
-            <p className="text-lg leading-relaxed text-gold-100">
-              Supporting families battling cancer through the power of community, 
-              golf, and love. Every swing counts, every donation matters, 
-              and every moment together helps heal hearts.
-            </p>
+        {/* Event details bar */}
+        <div data-hero-details className="mt-16 glass rounded-2xl p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div className="flex items-center justify-center gap-3">
+              <Calendar className="w-5 h-5 text-amber-500" />
+              <div>
+                <div className="text-ivory-200 text-sm uppercase tracking-wide">Date</div>
+                <div className="text-ivory-50 font-semibold text-lg">July 15, 2026</div>
+              </div>
+            </div>
+            <div className="flex items-center justify-center gap-3 md:border-x md:border-midnight-700">
+              <Clock className="w-5 h-5 text-amber-500" />
+              <div>
+                <div className="text-ivory-200 text-sm uppercase tracking-wide">Shotgun Start</div>
+                <div className="text-ivory-50 font-semibold text-lg">8:00 AM</div>
+              </div>
+            </div>
+            <div className="flex items-center justify-center gap-3">
+              <MapPin className="w-5 h-5 text-amber-500" />
+              <div>
+                <div className="text-ivory-200 text-sm uppercase tracking-wide">Venue</div>
+                <div className="text-ivory-50 font-semibold text-lg">Sycamore Ridge Golf Course</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-gold-300 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-gold-300 rounded-full mt-2 animate-pulse"></div>
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+        <div className="w-6 h-10 border-2 border-ivory-200/30 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-amber-500 rounded-full mt-2 animate-pulse" />
         </div>
       </div>
     </section>

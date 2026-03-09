@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-playfair",
 });
 
-const poppins = Poppins({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-poppins",
+  variable: "--font-dm-sans",
 });
 
 export const metadata: Metadata = {
-  title: "Lovelace Memorial Cup - Golf Tournament 2025",
-  description: "Join us for the Lovelace Memorial Cup golf tournament on August 15th, 2025 at Sycamore Ridge Golf Course. Supporting families battling cancer with love and community.",
-  keywords: "golf tournament, memorial cup, charity golf, cancer support, Sycamore Ridge Golf Course",
+  title: "Lovelace Memorial Cup - 3rd Annual Golf Tournament 2026",
+  description: "Join us for the 3rd Annual Lovelace Memorial Cup golf tournament in July 2026 at Sycamore Ridge Golf Course. Supporting families battling cancer with love and community.",
+  keywords: "golf tournament, memorial cup, charity golf, cancer support, Sycamore Ridge Golf Course, 2026",
   authors: [{ name: "Lovelace Memorial Cup Organization" }],
   icons: {
     icon: [
@@ -26,7 +25,7 @@ export const metadata: Metadata = {
     apple: { url: '/favicon.svg', type: 'image/svg+xml' },
   },
   openGraph: {
-    title: "Lovelace Memorial Cup - Golf Tournament 2025",
+    title: "Lovelace Memorial Cup - 3rd Annual Golf Tournament 2026",
     description: "Supporting families battling cancer through community and golf",
     type: "website",
     locale: "en_US",
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lovelace Memorial Cup - Golf Tournament 2025",
+    title: "Lovelace Memorial Cup - 3rd Annual Golf Tournament 2026",
     description: "Supporting families battling cancer through community and golf",
   },
 };
@@ -47,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${poppins.variable} font-sans antialiased bg-cream-50 text-forest-900`}
+        className={`${playfair.variable} ${dmSans.variable} font-sans antialiased bg-midnight-950 text-ivory-50`}
       >
         {children}
       </body>
