@@ -54,15 +54,12 @@ const Contact = () => {
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        // Contact info cards: slide in from left with stagger
         gsap.from('[data-contact-card]', {
           x: -40, opacity: 0, duration: 0.8,
-          ease: 'power3.out',
-          stagger: 0.15,
+          ease: 'power3.out', stagger: 0.15,
           scrollTrigger: { trigger: '[data-contact-left]', start: 'top 80%' },
         });
 
-        // Form: slide in from right
         gsap.from('[data-contact-form]', {
           x: 40, opacity: 0, duration: 0.9,
           ease: 'power3.out',
@@ -75,15 +72,15 @@ const Contact = () => {
   }, []);
 
   return (
-    <section ref={containerRef} id="contact" className="py-24 bg-midnight-950">
+    <section ref={containerRef} id="contact" className="py-24 bg-ivory-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="font-display font-bold text-4xl sm:text-5xl text-ivory-50 mb-4">
+          <h2 className="font-display font-bold text-4xl sm:text-5xl text-midnight-900 mb-4">
             Get in Touch
           </h2>
-          <div className="w-16 h-0.5 bg-amber-500 mx-auto mb-6" />
-          <p className="text-ivory-200 text-lg max-w-2xl mx-auto">
+          <div className="w-16 h-0.5 bg-sage-500 mx-auto mb-6" />
+          <p className="text-midnight-700 text-lg max-w-2xl mx-auto">
             Questions about the tournament, registration, or sponsorship? We&apos;d love to hear from you.
           </p>
         </div>
@@ -92,47 +89,47 @@ const Contact = () => {
           {/* Contact Cards — left */}
           <div data-contact-left className="lg:col-span-2 space-y-6">
             {contactInfo.map((info, index) => (
-              <div key={index} data-contact-card className="glass rounded-xl p-6 flex items-start gap-4">
-                <div className="text-amber-500 mt-0.5">{info.icon}</div>
+              <div key={index} data-contact-card className="card-light rounded-xl p-6 flex items-start gap-4">
+                <div className="text-sage-600 mt-0.5">{info.icon}</div>
                 <div>
-                  <h4 className="font-semibold text-ivory-50 mb-1">{info.title}</h4>
+                  <h4 className="font-semibold text-midnight-900 mb-1">{info.title}</h4>
                   {info.link ? (
                     <a
                       href={info.link}
-                      className="text-ivory-200 hover:text-amber-400 transition-colors"
+                      className="text-midnight-700 hover:text-sage-600 transition-colors"
                       target={info.link.startsWith('http') ? '_blank' : undefined}
                       rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
                     >
                       {info.content}
                     </a>
                   ) : (
-                    <p className="text-ivory-200">{info.content}</p>
+                    <p className="text-midnight-700">{info.content}</p>
                   )}
                 </div>
               </div>
             ))}
 
             {/* Quick Actions */}
-            <div data-contact-card className="glass rounded-xl p-6">
-              <h4 className="font-display font-semibold text-lg text-ivory-50 mb-4">
+            <div data-contact-card className="card-light rounded-xl p-6">
+              <h4 className="font-display font-semibold text-lg text-midnight-900 mb-4">
                 Quick Actions
               </h4>
               <div className="space-y-3">
                 <a
                   href="#registration"
-                  className="block w-full bg-amber-500 text-midnight-950 text-center py-3 rounded-full font-semibold hover:bg-amber-400 transition-colors"
+                  className="block w-full bg-sage-600 text-white text-center py-3 rounded-full font-semibold hover:bg-sage-700 transition-colors"
                 >
                   Register Now
                 </a>
                 <a
                   href="mailto:wolfersway@gmail.com?subject=Sponsorship Inquiry"
-                  className="block w-full border border-amber-500/30 text-amber-400 text-center py-3 rounded-full font-semibold hover:bg-amber-500 hover:text-midnight-950 transition-all"
+                  className="block w-full border border-sage-500 text-sage-700 text-center py-3 rounded-full font-semibold hover:bg-sage-600 hover:text-white transition-all"
                 >
                   Become a Sponsor
                 </a>
                 <a
                   href="mailto:wolfersway@gmail.com?subject=Volunteer Inquiry"
-                  className="block w-full border border-midnight-700 text-ivory-200 text-center py-3 rounded-full font-semibold hover:border-ivory-200/50 hover:text-ivory-50 transition-all"
+                  className="block w-full border border-ivory-200 text-midnight-700 text-center py-3 rounded-full font-semibold hover:border-sage-400 hover:text-sage-700 transition-all"
                 >
                   Volunteer to Help
                 </a>
@@ -142,28 +139,28 @@ const Contact = () => {
 
           {/* Form — right */}
           <div data-contact-form className="lg:col-span-3">
-            <div className="glass rounded-2xl p-8">
-              <h3 className="font-display font-semibold text-xl text-ivory-50 mb-6">
+            <div className="card-light rounded-2xl p-8">
+              <h3 className="font-display font-semibold text-xl text-midnight-900 mb-6">
                 Send Us a Message
               </h3>
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="contact-name" className="block text-sm font-medium text-ivory-200 mb-1.5">Name *</label>
+                    <label htmlFor="contact-name" className="block text-sm font-medium text-midnight-800 mb-1.5">Name *</label>
                     <input
                       type="text" id="contact-name" name="name" required
                       value={formData.name} onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-midnight-950 border border-midnight-700 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
                       placeholder="Your full name"
                     />
                   </div>
                   <div>
-                    <label htmlFor="contact-email" className="block text-sm font-medium text-ivory-200 mb-1.5">Email *</label>
+                    <label htmlFor="contact-email" className="block text-sm font-medium text-midnight-800 mb-1.5">Email *</label>
                     <input
                       type="email" id="contact-email" name="email" required
                       value={formData.email} onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-midnight-950 border border-midnight-700 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
                       placeholder="your@email.com"
                     />
                   </div>
@@ -171,20 +168,20 @@ const Contact = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="contact-phone" className="block text-sm font-medium text-ivory-200 mb-1.5">Phone</label>
+                    <label htmlFor="contact-phone" className="block text-sm font-medium text-midnight-800 mb-1.5">Phone</label>
                     <input
                       type="tel" id="contact-phone" name="phone"
                       value={formData.phone} onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-midnight-950 border border-midnight-700 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
                       placeholder="(555) 123-4567"
                     />
                   </div>
                   <div>
-                    <label htmlFor="contact-subject" className="block text-sm font-medium text-ivory-200 mb-1.5">Subject *</label>
+                    <label htmlFor="contact-subject" className="block text-sm font-medium text-midnight-800 mb-1.5">Subject *</label>
                     <select
                       id="contact-subject" name="subject" required
                       value={formData.subject} onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-midnight-950 border border-midnight-700 rounded-lg text-ivory-50 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
                     >
                       <option value="">Select a topic</option>
                       <option value="Registration Question">Registration Question</option>
@@ -196,17 +193,17 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="contact-message" className="block text-sm font-medium text-ivory-200 mb-1.5">Message *</label>
+                  <label htmlFor="contact-message" className="block text-sm font-medium text-midnight-800 mb-1.5">Message *</label>
                   <textarea
                     id="contact-message" name="message" required rows={5}
                     value={formData.message} onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-midnight-950 border border-midnight-700 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors resize-none"
                     placeholder="Tell us how we can help..."
                   />
                 </div>
 
                 {submitStatus === 'success' && (
-                  <div className="bg-amber-500/10 border border-amber-500/30 text-amber-400 px-4 py-3 rounded-lg text-sm">
+                  <div className="bg-sage-50 border border-sage-200 text-sage-700 px-4 py-3 rounded-lg text-sm">
                     Your message will open in your email client. Thank you!
                   </div>
                 )}
@@ -214,7 +211,7 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-amber-500 text-midnight-950 py-4 rounded-full font-bold text-lg hover:bg-amber-400 transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="w-full bg-sage-600 text-white py-4 rounded-full font-bold text-lg hover:bg-sage-700 transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
                     <><Loader2 className="w-5 h-5 animate-spin" /> Sending...</>

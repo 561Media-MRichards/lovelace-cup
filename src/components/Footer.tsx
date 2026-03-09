@@ -27,7 +27,7 @@ const Footer = () => {
               />
               <div>
                 <div className="font-display font-bold text-ivory-50">Lovelace Memorial Cup</div>
-                <div className="text-amber-500 text-xs italic">3rd Annual - July 2026</div>
+                <div className="text-sage-400 text-xs italic">3rd Annual - July 2026</div>
               </div>
             </div>
             <p className="text-ivory-200/70 text-sm leading-relaxed max-w-sm">
@@ -37,13 +37,13 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-display font-semibold text-sm uppercase tracking-widest text-amber-500 mb-4">
+            <h3 className="font-display font-semibold text-sm uppercase tracking-widest text-sage-400 mb-4">
               Quick Links
             </h3>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-ivory-200/70 hover:text-amber-400 transition-colors text-sm">
+                  <a href={link.href} className="text-ivory-200/70 hover:text-sage-300 transition-colors text-sm">
                     {link.label}
                   </a>
                 </li>
@@ -53,22 +53,22 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h3 className="font-display font-semibold text-sm uppercase tracking-widest text-amber-500 mb-4">
+            <h3 className="font-display font-semibold text-sm uppercase tracking-widest text-sage-400 mb-4">
               Contact
             </h3>
             <div className="space-y-3 text-sm text-ivory-200/70">
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-amber-500/60" />
-                <a href="mailto:wolfersway@gmail.com" className="hover:text-amber-400 transition-colors">
+                <Mail className="w-4 h-4 text-sage-400/60" />
+                <a href="mailto:wolfersway@gmail.com" className="hover:text-sage-300 transition-colors">
                   wolfersway@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-amber-500/60" />
+                <Calendar className="w-4 h-4 text-sage-400/60" />
                 <span>July 15, 2026 - 8:00 AM</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-amber-500/60" />
+                <MapPin className="w-4 h-4 text-sage-400/60" />
                 <span>Sycamore Ridge Golf Course</span>
               </div>
             </div>

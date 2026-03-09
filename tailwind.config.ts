@@ -20,6 +20,17 @@ export default {
           400: '#FBBF24',
           500: '#F59E0B',
         },
+        sage: {
+          800: '#1B4332',
+          700: '#2D6A4F',
+          600: '#40916C',
+          500: '#52B788',
+          400: '#74C69D',
+          300: '#95D5B2',
+          200: '#B7E4C7',
+          100: '#D8F3DC',
+          50: '#F0FFF4',
+        },
         ivory: {
           50: '#FEFDFB',
           100: '#FAF9F6',
@@ -34,7 +45,7 @@ export default {
         sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
-        'hero-gradient': 'linear-gradient(135deg, #0A0E17 0%, #1E293B 50%, #0A0E17 100%)',
+        'hero-gradient': 'linear-gradient(135deg, #1B4332 0%, #0A0E17 40%, #111827 100%)',
         'amber-glow': 'radial-gradient(ellipse at center, rgba(245,158,11,0.15) 0%, transparent 70%)',
       },
     },

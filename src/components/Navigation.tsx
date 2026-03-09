@@ -54,14 +54,14 @@ const Navigation = () => {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-ivory-100 hover:text-amber-400 transition-colors duration-200 text-sm font-medium uppercase tracking-widest"
+                className="text-ivory-100 hover:text-sage-300 transition-colors duration-200 text-sm font-medium uppercase tracking-widest"
               >
                 {item.label}
               </Link>
             ))}
             <a
               href="#registration"
-              className="bg-amber-500 text-midnight-950 px-6 py-2.5 rounded-full font-semibold text-sm uppercase tracking-wide hover:bg-amber-400 transition-all duration-200 shadow-lg shadow-amber-500/20"
+              className="bg-sage-500 text-white px-6 py-2.5 rounded-full font-semibold text-sm uppercase tracking-wide hover:bg-sage-400 transition-all duration-200 shadow-lg shadow-sage-500/20"
             >
               Register Now
             </a>
@@ -102,7 +102,7 @@ const Navigation = () => {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-ivory-100 hover:text-amber-400 transition-colors duration-200 font-medium py-2 uppercase tracking-widest text-sm"
+                className="text-ivory-100 hover:text-sage-300 transition-colors duration-200 font-medium py-2 uppercase tracking-widest text-sm"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}
@@ -110,7 +110,7 @@ const Navigation = () => {
             ))}
             <a
               href="#registration"
-              className="bg-amber-500 text-midnight-950 px-6 py-3 rounded-full font-semibold text-center uppercase tracking-wide hover:bg-amber-400 transition-all duration-200"
+              className="bg-sage-500 text-white px-6 py-3 rounded-full font-semibold text-center uppercase tracking-wide hover:bg-sage-400 transition-all duration-200"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Register Now

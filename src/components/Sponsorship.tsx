@@ -35,7 +35,7 @@ const Sponsorship = () => {
     {
       name: 'Gold Sponsor',
       price: '$1,250',
-      borderColor: 'border-t-amber-500',
+      borderColor: 'border-t-sage-400',
       popular: true,
       benefits: [
         'Team of 4 golfers included',
@@ -49,7 +49,7 @@ const Sponsorship = () => {
     {
       name: 'Title Sponsor',
       price: '$3,000',
-      borderColor: 'border-t-amber-400',
+      borderColor: 'border-t-amber-500',
       benefits: [
         'Event naming rights',
         'Two teams of 4 included',
@@ -114,7 +114,7 @@ const Sponsorship = () => {
         <div data-benefit-grid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           {benefits.map((benefit, index) => (
             <div key={index} data-benefit-card className="glass rounded-xl p-6 text-center">
-              <div className="text-amber-500 mb-4 flex justify-center">{benefit.icon}</div>
+              <div className="text-sage-400 mb-4 flex justify-center">{benefit.icon}</div>
               <h4 className="font-display font-semibold text-lg text-ivory-50 mb-2">
                 {benefit.title}
               </h4>
@@ -145,7 +145,7 @@ const Sponsorship = () => {
                 <h4 className="font-display font-bold text-lg text-ivory-50 mb-2">
                   {tier.name}
                 </h4>
-                <div className="font-display text-3xl font-bold text-amber-400">
+                <div className="font-display text-3xl font-bold text-sage-300">
                   {tier.price}
                 </div>
               </div>
@@ -153,7 +153,7 @@ const Sponsorship = () => {
               <ul className="space-y-3 mb-6">
                 {tier.benefits.map((benefit, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm">
-                    <Check className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-sage-400 mt-0.5 flex-shrink-0" />
                     <span className="text-ivory-200">{benefit}</span>
                   </li>
                 ))}
@@ -161,7 +161,7 @@ const Sponsorship = () => {
 
               <a
                 href="mailto:wolfersway@gmail.com?subject=Sponsorship Inquiry - Lovelace Memorial Cup"
-                className="block w-full bg-midnight-950 text-ivory-50 text-center py-3 rounded-full font-semibold hover:bg-amber-500 hover:text-midnight-950 transition-all duration-200 border border-midnight-700"
+                className="block w-full bg-sage-700 text-white text-center py-3 rounded-full font-semibold hover:bg-sage-600 transition-all duration-200"
               >
                 Become a Sponsor
               </a>
@@ -199,7 +199,7 @@ const Sponsorship = () => {
           </p>
 
           <div className="mb-8">
-            <div className="text-amber-500 text-sm uppercase tracking-widest mb-4">
+            <div className="text-sage-400 text-sm uppercase tracking-widest mb-4">
               Presenting Sponsor
             </div>
             <a

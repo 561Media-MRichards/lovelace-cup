@@ -73,14 +73,14 @@ const Hero = () => {
           {/* Left: Typography — 60% */}
           <div className="lg:col-span-3 space-y-8">
             <div className="space-y-4">
-              <span data-hero-label className="inline-block text-amber-500 text-sm font-semibold uppercase tracking-[0.3em] border border-amber-500/30 px-4 py-1.5 rounded-full">
-                3rd Annual
+              <span data-hero-label className="inline-block text-sage-300 text-sm font-semibold uppercase tracking-[0.3em] border border-sage-400/30 bg-sage-700/20 px-4 py-1.5 rounded-full">
+                3rd Annual Charity Golf Tournament
               </span>
               <h1 className="font-display">
                 <span data-hero-title className="block text-7xl sm:text-8xl lg:text-9xl font-bold text-ivory-50 leading-[0.9]">
                   LOVELACE
                 </span>
-                <span data-hero-subtitle className="block text-5xl sm:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300 leading-tight mt-2">
+                <span data-hero-subtitle className="block text-5xl sm:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sage-300 to-amber-400 leading-tight mt-2">
                   Memorial Cup
                 </span>
               </h1>
@@ -107,13 +107,13 @@ const Hero = () => {
             <div data-hero-ctas className="flex flex-col sm:flex-row gap-4">
               <a
                 href="#registration"
-                className="bg-amber-500 text-midnight-950 px-8 py-4 rounded-full text-lg font-bold hover:bg-amber-400 transition-all duration-200 shadow-lg shadow-amber-500/25 text-center"
+                className="bg-sage-500 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-sage-400 transition-all duration-200 shadow-lg shadow-sage-500/25 text-center"
               >
                 Register Now
               </a>
               <a
                 href="#sponsorship"
-                className="border-2 border-ivory-200/30 text-ivory-50 px-8 py-4 rounded-full text-lg font-semibold hover:border-amber-400 hover:text-amber-400 transition-all duration-200 text-center"
+                className="border-2 border-amber-400/40 text-amber-300 px-8 py-4 rounded-full text-lg font-semibold hover:bg-amber-500 hover:text-midnight-950 hover:border-amber-500 transition-all duration-200 text-center"
               >
                 Become a Sponsor
               </a>
@@ -130,10 +130,10 @@ const Hero = () => {
                   className="w-full h-full object-cover"
                 />
                 {/* Warm overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-midnight-950/60 via-transparent to-amber-500/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-950/60 via-transparent to-sage-500/10" />
               </div>
               {/* Decorative border accent */}
-              <div className="absolute -inset-3 border border-amber-500/20 rounded-3xl -z-10" />
+              <div className="absolute -inset-3 border border-sage-400/20 rounded-3xl -z-10" />
             </div>
           </div>
         </div>
@@ -142,21 +142,21 @@ const Hero = () => {
         <div data-hero-details className="mt-16 glass rounded-2xl p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div className="flex items-center justify-center gap-3">
-              <Calendar className="w-5 h-5 text-amber-500" />
+              <Calendar className="w-5 h-5 text-sage-400" />
               <div>
                 <div className="text-ivory-200 text-sm uppercase tracking-wide">Date</div>
                 <div className="text-ivory-50 font-semibold text-lg">July 15, 2026</div>
               </div>
             </div>
             <div className="flex items-center justify-center gap-3 md:border-x md:border-midnight-700">
-              <Clock className="w-5 h-5 text-amber-500" />
+              <Clock className="w-5 h-5 text-sage-400" />
               <div>
                 <div className="text-ivory-200 text-sm uppercase tracking-wide">Shotgun Start</div>
                 <div className="text-ivory-50 font-semibold text-lg">8:00 AM</div>
               </div>
             </div>
             <div className="flex items-center justify-center gap-3">
-              <MapPin className="w-5 h-5 text-amber-500" />
+              <MapPin className="w-5 h-5 text-sage-400" />
               <div>
                 <div className="text-ivory-200 text-sm uppercase tracking-wide">Venue</div>
                 <div className="text-ivory-50 font-semibold text-lg">Sycamore Ridge Golf Course</div>
@@ -169,7 +169,7 @@ const Hero = () => {
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
         <div className="w-6 h-10 border-2 border-ivory-200/30 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-amber-500 rounded-full mt-2 animate-pulse" />
+          <div className="w-1 h-3 bg-sage-400 rounded-full mt-2 animate-pulse" />
         </div>
       </div>
     </section>
