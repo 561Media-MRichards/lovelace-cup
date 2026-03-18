@@ -164,7 +164,7 @@ const Registration = () => {
               type="button"
               onClick={() => {
                 setSelectedPackage(pkg.id);
-                if (pkg.id !== 'single') setFormData(prev => ({ ...prev, teamName: '' }));
+                if (pkg.id === 'premium') setFormData(prev => ({ ...prev, teamName: '' }));
               }}
               data-package-card
               {...(pkg.popular ? { 'data-package-popular': true } : {})}
@@ -272,7 +272,7 @@ const Registration = () => {
                     placeholder="(555) 123-4567"
                   />
                 </div>
-                {selectedPackage === 'single' && (
+                {selectedPackage !== 'premium' && (
                   <div>
                     <label htmlFor="reg-team" className="block text-sm font-medium text-midnight-800 mb-1.5">
                       Team Name
@@ -287,7 +287,9 @@ const Registration = () => {
                       placeholder="e.g. Team Lance"
                     />
                     <p className="mt-1.5 text-xs text-midnight-700/60">
-                      Paying separately? Enter your team captain&apos;s name so we can group you together.
+                      {selectedPackage === 'single'
+                        ? "Paying separately? Enter your team captain\u2019s name so we can group you together."
+                        : "Give your team a name so we can identify your group."}
                     </p>
                   </div>
                 )}
