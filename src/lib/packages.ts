@@ -20,3 +20,32 @@ export const PACKAGES = {
 } as const;
 
 export type PackageId = keyof typeof PACKAGES;
+
+export const SPONSORSHIP_TIERS = {
+  hole: {
+    id: 'hole',
+    name: 'Hole Sponsor',
+    priceInCents: 30000,
+    displayPrice: '$300',
+  },
+  cart: {
+    id: 'cart',
+    name: 'Cart Sponsor',
+    priceInCents: 60000,
+    displayPrice: '$600',
+  },
+  'team-sponsor': {
+    id: 'team-sponsor',
+    name: 'Team Sponsor',
+    priceInCents: 125000,
+    displayPrice: '$1,250',
+  },
+  title: {
+    id: 'title',
+    name: 'Title Sponsor',
+    priceInCents: 300000,
+    displayPrice: '$3,000',
+  },
+} as const;
+
+export type SponsorshipTierId = keyof typeof SPONSORSHIP_TIERS;
