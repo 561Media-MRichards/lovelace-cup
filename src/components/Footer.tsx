@@ -27,7 +27,7 @@ const Footer = () => {
               />
               <div>
                 <div className="font-display font-bold text-ivory-50">Lovelace Memorial Cup</div>
-                <div className="text-sage-400 text-xs italic">3rd Annual - July 2026</div>
+                <div className="text-sage-400 text-xs italic">3rd Annual - June 2026</div>
               </div>
             </div>
             <p className="text-ivory-200/70 text-sm leading-relaxed max-w-sm">
@@ -65,11 +65,13 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-sage-400/60" />
-                <span>July 15, 2026 - 8:00 AM</span>
+                <span>June 29, 2026 - 8:00 AM</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-sage-400/60" />
-                <span>Sycamore Ridge Golf Course</span>
+                <a href="https://www.sycamoreridgegolf.com/" target="_blank" rel="noopener noreferrer" className="hover:text-sage-300 transition-colors">
+                  Sycamore Ridge Golf Course
+                </a>
               </div>
             </div>
           </div>

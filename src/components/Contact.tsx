@@ -45,7 +45,7 @@ const Contact = () => {
   const contactInfo = [
     { icon: <Mail className="w-5 h-5" />, title: 'Email Us', content: 'wolfersway@gmail.com', link: 'mailto:wolfersway@gmail.com' },
     { icon: <MapPin className="w-5 h-5" />, title: 'Golf Course', content: 'Sycamore Ridge Golf Course', link: 'https://maps.google.com/?q=Sycamore+Ridge+Golf+Course' },
-    { icon: <Calendar className="w-5 h-5" />, title: 'Event Date', content: 'July 15, 2026 at 8:00 AM', link: null },
+    { icon: <Calendar className="w-5 h-5" />, title: 'Event Date', content: 'June 29, 2026 at 8:00 AM', link: null },
   ];
 
   // GSAP scroll-triggered animations

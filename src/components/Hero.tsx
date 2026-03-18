@@ -15,7 +15,7 @@ const Hero = () => {
   });
 
   useEffect(() => {
-    const eventDate = new Date('2026-07-15T08:00:00');
+    const eventDate = new Date('2026-06-29T08:00:00');
 
     const updateCountdown = () => {
       const now = new Date().getTime();
@@ -68,7 +68,7 @@ const Hero = () => {
           <div className="lg:col-span-3 space-y-8">
             <div className="space-y-5">
               <span data-hero-label className="inline-block text-sage-300 text-sm font-semibold uppercase tracking-[0.25em] border border-sage-400/30 bg-sage-700/20 px-4 py-1.5 rounded-full">
-                3rd Annual Charity Golf Tournament
+                3rd Annual Charity Golf Tournament &bull; 4-Man Scramble
               </span>
               <h1 className="font-display">
                 <span data-hero-title className="block text-6xl sm:text-7xl lg:text-8xl font-bold text-ivory-50 leading-[0.95] tracking-tight">
@@ -136,7 +136,7 @@ const Hero = () => {
               <Calendar className="w-5 h-5 text-sage-400" />
               <div>
                 <div className="text-ivory-200/70 text-xs uppercase tracking-wide">Date</div>
-                <div className="text-ivory-50 font-semibold">July 15, 2026</div>
+                <div className="text-ivory-50 font-semibold">June 29, 2026</div>
               </div>
             </div>
             <div className="flex items-center justify-center gap-3 md:border-x md:border-midnight-700">
@@ -150,7 +150,9 @@ const Hero = () => {
               <MapPin className="w-5 h-5 text-sage-400" />
               <div>
                 <div className="text-ivory-200/70 text-xs uppercase tracking-wide">Venue</div>
-                <div className="text-ivory-50 font-semibold">Sycamore Ridge Golf Course</div>
+                <a href="https://www.sycamoreridgegolf.com/" target="_blank" rel="noopener noreferrer" className="text-ivory-50 font-semibold hover:text-sage-300 transition-colors">
+                  Sycamore Ridge Golf Course
+                </a>
               </div>
             </div>
           </div>

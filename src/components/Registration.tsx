@@ -4,8 +4,63 @@ import { useEffect, useRef, useState } from 'react';
 import { Check, Star, Loader2 } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { PACKAGES } from '../lib/packages';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const packageList = [
+  {
+    ...PACKAGES.single,
+    type: PACKAGES.single.name,
+    price: PACKAGES.single.displayPrice,
+    description: 'Individual registration — 4-man scramble format',
+    features: [
+      '18 holes of golf (4-man scramble)',
+      'Cart included',
+      'Welcome breakfast',
+      'Awards lunch',
+      'Tournament swag bag',
+      'Closest to pin contest',
+      'Longest drive contest',
+    ],
+    popular: false,
+  },
+  {
+    ...PACKAGES.team,
+    type: PACKAGES.team.name,
+    price: PACKAGES.team.displayPrice,
+    description: 'Full 4-man scramble team — best value',
+    features: [
+      '4-man scramble team',
+      '18 holes of golf',
+      'Carts for all players',
+      'Welcome breakfast for team',
+      'Awards lunch for team',
+      'Tournament swag bags (4)',
+      'Team photo opportunity',
+      'All contest eligibility',
+    ],
+    popular: true,
+  },
+  {
+    ...PACKAGES.premium,
+    type: PACKAGES.premium.name,
+    price: PACKAGES.premium.displayPrice,
+    description: 'Full team + premium sponsor perks',
+    features: [
+      '4-man scramble team included',
+      'All team benefits',
+      'Logo on tournament materials',
+      'Tee box sponsorship sign',
+      'Awards ceremony recognition',
+      'Social media mentions',
+      'Website listing',
+      'Premium swag bags',
+      'VIP parking',
+    ],
+    popular: false,
+  },
+];
 
 const Registration = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -18,61 +73,7 @@ const Registration = () => {
     specialRequests: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  const packages = [
-    {
-      id: 'single',
-      type: 'Single Player',
-      price: '$150',
-      description: 'Individual registration for one golfer',
-      features: [
-        '18 holes of golf',
-        'Cart included',
-        'Welcome breakfast',
-        'Awards lunch',
-        'Tournament swag bag',
-        'Closest to pin contest',
-        'Longest drive contest',
-      ],
-      popular: false,
-    },
-    {
-      id: 'team',
-      type: 'Team of 4',
-      price: '$500',
-      description: 'Four-person team — best value',
-      features: [
-        'Team of 4 golfers',
-        '18 holes of golf',
-        'Carts for all players',
-        'Welcome breakfast for team',
-        'Awards lunch for team',
-        'Tournament swag bags (4)',
-        'Team photo opportunity',
-        'All contest eligibility',
-      ],
-      popular: true,
-    },
-    {
-      id: 'premium',
-      type: 'Premium Sponsor',
-      price: '$1,250',
-      description: 'Team + sponsor perks package',
-      features: [
-        'Team of 4 golfers included',
-        'All team benefits',
-        'Logo on tournament materials',
-        'Tee box sponsorship sign',
-        'Awards ceremony recognition',
-        'Social media mentions',
-        'Website listing',
-        'Premium swag bags',
-        'VIP parking',
-      ],
-      popular: false,
-    },
-  ];
+  const [submitError, setSubmitError] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -81,7 +82,7 @@ const Registration = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus('idle');
+    setSubmitError('');
 
     try {
       const res = await fetch('/api/register', {
@@ -89,20 +90,20 @@ const Registration = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          package: packages.find(p => p.id === selectedPackage)?.type || selectedPackage,
-          price: packages.find(p => p.id === selectedPackage)?.price || '',
+          packageId: selectedPackage,
         }),
       });
 
-      if (res.ok) {
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', phone: '', teamName: '', specialRequests: '' });
+      const data = await res.json();
+
+      if (res.ok && data.url) {
+        window.location.href = data.url;
       } else {
-        setSubmitStatus('error');
+        setSubmitError(data.error || 'Something went wrong. Please try again.');
+        setIsSubmitting(false);
       }
     } catch {
-      setSubmitStatus('error');
-    } finally {
+      setSubmitError('Something went wrong. Please try again or email wolfersway@gmail.com directly.');
       setIsSubmitting(false);
     }
   };
@@ -157,7 +158,7 @@ const Registration = () => {
 
         {/* Package Cards */}
         <div data-package-grid className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-16">
-          {packages.map((pkg) => (
+          {packageList.map((pkg) => (
             <button
               key={pkg.id}
               type="button"
@@ -218,131 +219,115 @@ const Registration = () => {
               Complete Your Registration
             </h3>
 
-            {submitStatus === 'success' ? (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Check className="w-8 h-8 text-sage-600" />
-                </div>
-                <h4 className="font-display text-xl font-bold text-midnight-900 mb-2">Registration Received!</h4>
-                <p className="text-midnight-700">Check your email for a confirmation. We&apos;ll be in touch with tournament details.</p>
-                <button
-                  onClick={() => setSubmitStatus('idle')}
-                  className="mt-6 text-sage-600 hover:text-sage-700 font-medium underline underline-offset-4"
-                >
-                  Register another player
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label htmlFor="reg-name" className="block text-sm font-medium text-midnight-800 mb-1.5">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="reg-name"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
-                      placeholder="John Smith"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="reg-email" className="block text-sm font-medium text-midnight-800 mb-1.5">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="reg-email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label htmlFor="reg-phone" className="block text-sm font-medium text-midnight-800 mb-1.5">
-                      Phone *
-                    </label>
-                    <input
-                      type="tel"
-                      id="reg-phone"
-                      name="phone"
-                      required
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
-                      placeholder="(555) 123-4567"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="reg-team" className="block text-sm font-medium text-midnight-800 mb-1.5">
-                      Team Name
-                    </label>
-                    <input
-                      type="text"
-                      id="reg-team"
-                      name="teamName"
-                      value={formData.teamName}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
-                      placeholder="Team name (optional)"
-                    />
-                  </div>
-                </div>
-
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="reg-requests" className="block text-sm font-medium text-midnight-800 mb-1.5">
-                    Special Requests
+                  <label htmlFor="reg-name" className="block text-sm font-medium text-midnight-800 mb-1.5">
+                    Full Name *
                   </label>
-                  <textarea
-                    id="reg-requests"
-                    name="specialRequests"
-                    rows={3}
-                    value={formData.specialRequests}
+                  <input
+                    type="text"
+                    id="reg-name"
+                    name="name"
+                    required
+                    value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors resize-none"
-                    placeholder="Dietary restrictions, accessibility needs, etc."
+                    className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
+                    placeholder="John Smith"
                   />
                 </div>
-
-                <div className="bg-sage-50 border border-sage-200 rounded-lg p-4 text-center">
-                  <span className="text-midnight-700 text-sm">Selected: </span>
-                  <span className="text-sage-700 font-semibold">
-                    {packages.find(p => p.id === selectedPackage)?.type} — {packages.find(p => p.id === selectedPackage)?.price}
-                  </span>
+                <div>
+                  <label htmlFor="reg-email" className="block text-sm font-medium text-midnight-800 mb-1.5">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    id="reg-email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
+                    placeholder="john@example.com"
+                  />
                 </div>
+              </div>
 
-                {submitStatus === 'error' && (
-                  <div className="bg-rose-500/10 border border-rose-500/30 text-rose-500 px-4 py-3 rounded-lg text-sm text-center">
-                    Something went wrong. Please try again or email wolfersway@gmail.com directly.
-                  </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label htmlFor="reg-phone" className="block text-sm font-medium text-midnight-800 mb-1.5">
+                    Phone *
+                  </label>
+                  <input
+                    type="tel"
+                    id="reg-phone"
+                    name="phone"
+                    required
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
+                    placeholder="(555) 123-4567"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="reg-team" className="block text-sm font-medium text-midnight-800 mb-1.5">
+                    Team Name
+                  </label>
+                  <input
+                    type="text"
+                    id="reg-team"
+                    name="teamName"
+                    value={formData.teamName}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
+                    placeholder="Team name (optional)"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="reg-requests" className="block text-sm font-medium text-midnight-800 mb-1.5">
+                  Special Requests
+                </label>
+                <textarea
+                  id="reg-requests"
+                  name="specialRequests"
+                  rows={3}
+                  value={formData.specialRequests}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors resize-none"
+                  placeholder="Dietary restrictions, accessibility needs, etc."
+                />
+              </div>
+
+              <div className="bg-sage-50 border border-sage-200 rounded-lg p-4 text-center">
+                <span className="text-midnight-700 text-sm">Selected: </span>
+                <span className="text-sage-700 font-semibold">
+                  {packageList.find(p => p.id === selectedPackage)?.type} — {packageList.find(p => p.id === selectedPackage)?.price}
+                </span>
+              </div>
+
+              {submitError && (
+                <div className="bg-rose-500/10 border border-rose-500/30 text-rose-500 px-4 py-3 rounded-lg text-sm text-center">
+                  {submitError}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-sage-600 text-white py-4 rounded-full font-bold text-lg hover:bg-sage-700 transition-all duration-200 shadow-lg shadow-sage-600/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Redirecting to Payment...
+                  </>
+                ) : (
+                  'Proceed to Payment'
                 )}
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-sage-600 text-white py-4 rounded-full font-bold text-lg hover:bg-sage-700 transition-all duration-200 shadow-lg shadow-sage-600/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Submitting...
-                    </>
-                  ) : (
-                    'Register Now'
-                  )}
-                </button>
-              </form>
-            )}
+              </button>
+            </form>
           </div>
         </div>
 
@@ -369,7 +354,7 @@ const Registration = () => {
                 <li className="flex items-center gap-3"><Check className="w-4 h-4 text-sage-500" /> Registration: 7:00 AM</li>
                 <li className="flex items-center gap-3"><Check className="w-4 h-4 text-sage-500" /> Shotgun start: 8:00 AM</li>
                 <li className="flex items-center gap-3"><Check className="w-4 h-4 text-sage-500" /> Awards ceremony: 2:00 PM</li>
-                <li className="flex items-center gap-3"><Check className="w-4 h-4 text-sage-500" /> Scramble format (team event)</li>
+                <li className="flex items-center gap-3"><Check className="w-4 h-4 text-sage-500" /> 4-man scramble format</li>
                 <li className="flex items-center gap-3"><Check className="w-4 h-4 text-sage-500" /> Prizes for top teams and contests</li>
               </ul>
             </div>

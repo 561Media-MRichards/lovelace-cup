@@ -25,7 +25,7 @@ const About = () => {
     {
       icon: <Trophy className="w-6 h-6" />,
       title: 'Golf with Purpose',
-      description: '18 holes at Sycamore Ridge, breakfast, lunch, contests, prizes, and the best company you\'ll find on a course. All for a cause that matters.',
+      description: '18 holes at Sycamore Ridge in a 4-man scramble — breakfast, lunch, contests, prizes, and the best company you\'ll find on a course. All for a cause that matters.',
     },
     {
       icon: <Users className="w-6 h-6" />,
@@ -247,8 +247,8 @@ const About = () => {
               </p>
               <p>
                 Now in its third year, the Lovelace Memorial Cup has become one of our community&apos;s
-                most anticipated events. This July, we&apos;re setting our sights on $10K and proving
-                once again that a great day on the course can do a whole lot of good.
+                most anticipated events. This June, we&apos;re setting our sights on $10K and proving
+                once again that a great day on the course can do a whole lot of good. Just $125 per player.
               </p>
               <blockquote className="font-display text-xl font-bold italic text-white/90 border-l-4 border-amber-400 pl-5 my-6 text-left">
                 &ldquo;Where the love of golf meets the power of giving.&rdquo;
