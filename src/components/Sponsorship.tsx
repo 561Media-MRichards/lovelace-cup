@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Check, Target, Briefcase, Heart, TrendingUp, X, Loader2 } from 'lucide-react';
+import { Check, Target, Briefcase, Heart, TrendingUp, X, Loader2, Send } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SPONSORSHIP_TIERS } from '../lib/packages';
@@ -77,6 +77,9 @@ const Sponsorship = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [customForm, setCustomForm] = useState({ name: '', email: '', phone: '', companyName: '', message: '' });
+  const [customSubmitting, setCustomSubmitting] = useState(false);
+  const [customStatus, setCustomStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const benefits = [
     { icon: <Target className="w-6 h-6" />, title: 'Targeted Marketing', description: 'Connect with local golf enthusiasts and community leaders.' },
@@ -113,6 +116,35 @@ const Sponsorship = () => {
     } catch {
       setSubmitError('Something went wrong. Please try again or email wolfersway@gmail.com directly.');
       setIsSubmitting(false);
+    }
+  };
+
+  const handleCustomInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setCustomForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleCustomSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCustomSubmitting(true);
+    setCustomStatus('idle');
+
+    try {
+      const res = await fetch('/api/custom-sponsor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(customForm),
+      });
+
+      if (res.ok) {
+        setCustomStatus('success');
+        setCustomForm({ name: '', email: '', phone: '', companyName: '', message: '' });
+      } else {
+        setCustomStatus('error');
+      }
+    } catch {
+      setCustomStatus('error');
+    } finally {
+      setCustomSubmitting(false);
     }
   };
 
@@ -221,22 +253,133 @@ const Sponsorship = () => {
         </div>
 
         {/* Custom Sponsorship */}
-        <div className="glass rounded-2xl p-8 text-center mb-16">
-          <h3 className="font-display font-bold text-2xl text-ivory-50 mb-4">
-            Custom Sponsorship Packages
-          </h3>
-          <p className="text-ivory-200 text-lg mb-8 max-w-2xl mx-auto">
-            Have a specific sponsorship idea? We&apos;d love to create a custom package
-            that meets your goals while supporting our cause.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="mailto:wolfersway@gmail.com?subject=Custom Sponsorship Package Inquiry"
-              className="bg-amber-500 text-midnight-950 px-8 py-4 rounded-full font-bold hover:bg-amber-400 transition-colors duration-200"
-            >
-              Discuss Custom Package
-            </a>
+        <div className="glass rounded-2xl p-8 mb-16">
+          <div className="text-center mb-8">
+            <h3 className="font-display font-bold text-2xl text-ivory-50 mb-4">
+              Custom Sponsorship Packages
+            </h3>
+            <p className="text-ivory-200 text-lg max-w-2xl mx-auto">
+              Have a specific sponsorship idea? We&apos;d love to create a custom package
+              that meets your goals while supporting our cause.
+            </p>
           </div>
+
+          {customStatus === 'success' ? (
+            <div className="text-center py-8">
+              <div className="w-16 h-16 bg-sage-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Check className="w-8 h-8 text-sage-400" />
+              </div>
+              <h4 className="font-display font-bold text-xl text-ivory-50 mb-2">Message Sent!</h4>
+              <p className="text-ivory-200">We&apos;ll be in touch shortly to discuss your custom sponsorship.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleCustomSubmit} className="max-w-2xl mx-auto space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="custom-name" className="block text-sm font-medium text-ivory-200 mb-1.5">
+                    Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="custom-name"
+                    name="name"
+                    required
+                    value={customForm.name}
+                    onChange={handleCustomInputChange}
+                    className="w-full px-4 py-3 bg-midnight-800/50 border border-ivory-200/20 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
+                    placeholder="John Smith"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="custom-company" className="block text-sm font-medium text-ivory-200 mb-1.5">
+                    Company Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="custom-company"
+                    name="companyName"
+                    required
+                    value={customForm.companyName}
+                    onChange={handleCustomInputChange}
+                    className="w-full px-4 py-3 bg-midnight-800/50 border border-ivory-200/20 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
+                    placeholder="Acme Corp"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="custom-email" className="block text-sm font-medium text-ivory-200 mb-1.5">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    id="custom-email"
+                    name="email"
+                    required
+                    value={customForm.email}
+                    onChange={handleCustomInputChange}
+                    className="w-full px-4 py-3 bg-midnight-800/50 border border-ivory-200/20 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
+                    placeholder="john@acmecorp.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="custom-phone" className="block text-sm font-medium text-ivory-200 mb-1.5">
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    id="custom-phone"
+                    name="phone"
+                    value={customForm.phone}
+                    onChange={handleCustomInputChange}
+                    className="w-full px-4 py-3 bg-midnight-800/50 border border-ivory-200/20 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
+                    placeholder="(555) 123-4567"
+                  />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="custom-message" className="block text-sm font-medium text-ivory-200 mb-1.5">
+                  Tell us about your sponsorship idea *
+                </label>
+                <textarea
+                  id="custom-message"
+                  name="message"
+                  required
+                  rows={4}
+                  value={customForm.message}
+                  onChange={handleCustomInputChange}
+                  className="w-full px-4 py-3 bg-midnight-800/50 border border-ivory-200/20 rounded-lg text-ivory-50 placeholder-ivory-200/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors resize-none"
+                  placeholder="Describe your custom sponsorship idea, budget, or any specific goals you have in mind..."
+                />
+              </div>
+
+              {customStatus === 'error' && (
+                <div className="bg-rose-500/10 border border-rose-500/30 text-rose-400 px-4 py-3 rounded-lg text-sm text-center">
+                  Something went wrong. Please try again or email wolfersway@gmail.com directly.
+                </div>
+              )}
+
+              <div className="text-center pt-2">
+                <button
+                  type="submit"
+                  disabled={customSubmitting}
+                  className="bg-amber-500 text-midnight-950 px-8 py-4 rounded-full font-bold hover:bg-amber-400 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2"
+                >
+                  {customSubmitting ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5" />
+                      Send Inquiry
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          )}
         </div>
 
         {/* Sponsor Recognition */}
