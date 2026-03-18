@@ -5,13 +5,12 @@ import { registrations } from '../../../../db/schema';
 import { PACKAGES, type PackageId } from '../../../lib/packages';
 import { eq } from 'drizzle-orm';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-02-25.clover',
-});
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+      httpClient: Stripe.createFetchHttpClient(),
+    });
     const { name, email, phone, teamName, specialRequests, packageId } = body;
 
     if (!name || !email || !phone || !packageId) {
@@ -42,7 +41,7 @@ export async function POST(request: Request) {
       .returning();
 
     // Create Stripe Checkout Session
-    const origin = request.headers.get('origin') || 'https://lovelacememorialcup.com';
+    const origin = request.headers.get('origin') || 'https://www.lovelacememorial.com';
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],

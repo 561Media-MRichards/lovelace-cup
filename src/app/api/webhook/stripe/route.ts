@@ -5,11 +5,10 @@ import { registrations } from '../../../../../db/schema';
 import { eq } from 'drizzle-orm';
 import { sendConfirmationEmail, sendNotificationEmail } from '../../../../lib/emails';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-02-25.clover',
-});
-
 export async function POST(request: Request) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    httpClient: Stripe.createFetchHttpClient(),
+  });
   const body = await request.text();
   const sig = request.headers.get('stripe-signature')!;
 
