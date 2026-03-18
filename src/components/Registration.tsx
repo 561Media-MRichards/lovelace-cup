@@ -162,7 +162,10 @@ const Registration = () => {
             <button
               key={pkg.id}
               type="button"
-              onClick={() => setSelectedPackage(pkg.id)}
+              onClick={() => {
+                setSelectedPackage(pkg.id);
+                if (pkg.id !== 'single') setFormData(prev => ({ ...prev, teamName: '' }));
+              }}
               data-package-card
               {...(pkg.popular ? { 'data-package-popular': true } : {})}
               className={`relative text-left rounded-2xl p-8 transition-all duration-300 ${
@@ -269,20 +272,25 @@ const Registration = () => {
                     placeholder="(555) 123-4567"
                   />
                 </div>
-                <div>
-                  <label htmlFor="reg-team" className="block text-sm font-medium text-midnight-800 mb-1.5">
-                    Team Name
-                  </label>
-                  <input
-                    type="text"
-                    id="reg-team"
-                    name="teamName"
-                    value={formData.teamName}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
-                    placeholder="Team name (optional)"
-                  />
-                </div>
+                {selectedPackage === 'single' && (
+                  <div>
+                    <label htmlFor="reg-team" className="block text-sm font-medium text-midnight-800 mb-1.5">
+                      Team Name
+                    </label>
+                    <input
+                      type="text"
+                      id="reg-team"
+                      name="teamName"
+                      value={formData.teamName}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-ivory-50 border border-ivory-200 rounded-lg text-midnight-900 placeholder-midnight-700/40 focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-colors"
+                      placeholder="e.g. Team Lance"
+                    />
+                    <p className="mt-1.5 text-xs text-midnight-700/60">
+                      Paying separately? Enter your team captain&apos;s name so we can group you together.
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div>
