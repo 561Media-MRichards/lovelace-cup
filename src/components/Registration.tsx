@@ -72,16 +72,17 @@ const Registration = () => {
     teamName: '',
     specialRequests: '',
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submittingMethod, setSubmittingMethod] = useState<null | 'stripe' | 'course'>(null);
   const [submitError, setSubmitError] = useState('');
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  const submitRegistration = async (paymentMethod: 'stripe' | 'course') => {
+    if (!formRef.current?.reportValidity()) return;
+    setSubmittingMethod(paymentMethod);
     setSubmitError('');
 
     try {
@@ -91,6 +92,7 @@ const Registration = () => {
         body: JSON.stringify({
           ...formData,
           packageId: selectedPackage,
+          paymentMethod,
         }),
       });
 
@@ -98,13 +100,17 @@ const Registration = () => {
 
       if (res.ok && data.url) {
         window.location.href = data.url;
-      } else {
-        setSubmitError(data.error || 'Something went wrong. Please try again.');
-        setIsSubmitting(false);
+        return;
       }
+      if (res.ok && data.payAtCourse) {
+        window.location.href = '/registration/success?method=course';
+        return;
+      }
+      setSubmitError(data.error || 'Something went wrong. Please try again.');
+      setSubmittingMethod(null);
     } catch {
       setSubmitError('Something went wrong. Please try again or email wolfersway@gmail.com directly.');
-      setIsSubmitting(false);
+      setSubmittingMethod(null);
     }
   };
 
@@ -222,7 +228,7 @@ const Registration = () => {
               Complete Your Registration
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form ref={formRef} onSubmit={(e) => { e.preventDefault(); submitRegistration('stripe'); }} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label htmlFor="reg-name" className="block text-sm font-medium text-midnight-800 mb-1.5">
@@ -323,20 +329,42 @@ const Registration = () => {
                 </div>
               )}
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-sage-600 text-white py-4 rounded-full font-bold text-lg hover:bg-sage-700 transition-all duration-200 shadow-lg shadow-sage-600/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Redirecting to Payment...
-                  </>
-                ) : (
-                  'Proceed to Payment'
-                )}
-              </button>
+              <div className="space-y-3">
+                <button
+                  type="submit"
+                  disabled={submittingMethod !== null}
+                  className="w-full bg-sage-600 text-white py-4 rounded-full font-bold text-lg hover:bg-sage-700 transition-all duration-200 shadow-lg shadow-sage-600/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {submittingMethod === 'stripe' ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Redirecting to Payment...
+                    </>
+                  ) : (
+                    'Pay Online Now'
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => submitRegistration('course')}
+                  disabled={submittingMethod !== null}
+                  className="w-full bg-white text-sage-700 py-4 rounded-full font-bold text-lg border-2 border-sage-600 hover:bg-sage-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {submittingMethod === 'course' ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Reserving Your Spot...
+                    </>
+                  ) : (
+                    'Pay at the Course'
+                  )}
+                </button>
+
+                <p className="text-center text-xs text-midnight-700/70 pt-1">
+                  Pay online to lock everything in now, or reserve your spot and bring cash, check, or card to the registration table on June 29.
+                </p>
+              </div>
             </form>
           </div>
         </div>

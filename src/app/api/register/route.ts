@@ -3,15 +3,13 @@ import Stripe from 'stripe';
 import { getDb } from '../../../../db';
 import { registrations } from '../../../../db/schema';
 import { PACKAGES, type PackageId } from '../../../lib/packages';
+import { sendConfirmationEmail, sendNotificationEmail } from '../../../lib/emails';
 import { eq } from 'drizzle-orm';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-      httpClient: Stripe.createFetchHttpClient(),
-    });
-    const { name, email, phone, teamName, specialRequests, packageId } = body;
+    const { name, email, phone, teamName, specialRequests, packageId, paymentMethod } = body;
 
     if (!name || !email || !phone || !packageId) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -22,9 +20,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid package' }, { status: 400 });
     }
 
+    const payAtCourse = paymentMethod === 'course';
     const db = getDb();
 
-    // Insert registration as pending
     const [registration] = await db
       .insert(registrations)
       .values({
@@ -36,11 +34,24 @@ export async function POST(request: Request) {
         packageId: pkg.id,
         packageName: pkg.name,
         priceInCents: pkg.priceInCents,
-        paymentStatus: 'pending',
+        paymentStatus: payAtCourse ? 'pay_at_course' : 'pending',
       })
       .returning();
 
-    // Create Stripe Checkout Session
+    if (payAtCourse) {
+      try {
+        await sendConfirmationEmail(registration);
+        await sendNotificationEmail(registration);
+      } catch (emailErr) {
+        console.error('Pay-at-course email failed:', emailErr);
+      }
+      return NextResponse.json({ payAtCourse: true });
+    }
+
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+      httpClient: Stripe.createFetchHttpClient(),
+    });
+
     const origin = request.headers.get('origin') || 'https://www.lovelacememorial.com';
 
     const session = await stripe.checkout.sessions.create({

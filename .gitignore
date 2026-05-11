@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local design deliverables (one-sheet PDFs/PNGs, render harness, nested node_modules)
+/sponsorship-onesheet

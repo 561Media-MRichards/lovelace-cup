@@ -23,19 +23,33 @@ export async function sendConfirmationEmail(reg: Registration) {
   const company = reg.companyName ? escapeHtml(reg.companyName) : '';
   const team = escapeHtml(reg.teamName || 'N/A');
 
+  const payAtCourse = reg.paymentStatus === 'pay_at_course';
+
   const heading = isSponsor ? 'Sponsorship Confirmed' : 'Registration Confirmed';
   const subject = isSponsor
     ? 'Sponsorship Confirmed - Lovelace Memorial Cup 2026'
-    : 'Registration Confirmed - Lovelace Memorial Cup 2026';
+    : payAtCourse
+      ? 'Spot Reserved - Pay at the Course - Lovelace Memorial Cup 2026'
+      : 'Registration Confirmed - Lovelace Memorial Cup 2026';
   const thankYou = isSponsor
     ? `Thank you for sponsoring the 3rd Annual Lovelace Memorial Cup! Your generous support as a <strong>${pkg}</strong> sponsor helps families battling cancer in our community.`
-    : 'Thank you for registering for the 3rd Annual Lovelace Memorial Cup! Your support helps families battling cancer in our community.';
+    : payAtCourse
+      ? 'Your spot is reserved for the 3rd Annual Lovelace Memorial Cup. Just bring your payment to the course on tournament day and we’ll get you checked in.'
+      : 'Thank you for registering for the 3rd Annual Lovelace Memorial Cup! Your support helps families battling cancer in our community.';
 
   const detailRows = isSponsor
     ? `<p><strong>Sponsorship Tier:</strong> ${pkg} (${price})</p>
        <p><strong>Company:</strong> ${company}</p>`
     : `<p><strong>Package:</strong> ${pkg} (${price})</p>
-       <p><strong>Team Name:</strong> ${team}</p>`;
+       <p><strong>Team Name:</strong> ${team}</p>
+       ${payAtCourse ? `<p><strong>Payment:</strong> Due at the course on June 29, 2026 (${price})</p>` : ''}`;
+
+  const payAtCourseCallout = payAtCourse ? `
+    <div style="background:#3b2a14; border:1px solid #F59E0B; border-radius:12px; padding:20px; margin:24px 0;">
+      <h3 style="color:#F59E0B; margin:0 0 8px 0; font-size:16px;">Heads up: payment due at check-in</h3>
+      <p style="margin:0; color:#F0EDE6; font-size:14px;">Please bring <strong>${price}</strong> in cash, check (made out to Lovelace Memorial Cup), or card to the registration table at 7:00 AM on tournament day. We can’t hold your spot past 7:30 AM, so plan to arrive a few minutes early.</p>
+    </div>
+  ` : '';
 
   await resend.emails.send({
     from: 'Lovelace Memorial Cup <proposals@561media.com>',
@@ -57,6 +71,7 @@ export async function sendConfirmationEmail(reg: Registration) {
           <p><strong>Time:</strong> Registration 7:00 AM | Shotgun Start 8:00 AM</p>
           <p><strong>Location:</strong> Sycamore Ridge Golf Course</p>
         </div>
+        ${payAtCourseCallout}
         <p>We'll be in touch with additional ${isSponsor ? 'sponsorship' : 'tournament'} details as the event approaches. If you have any questions, reply to this email or contact us at wolfersway@gmail.com.</p>
         <p style="color: #F0EDE6; font-style: italic; margin-top: 32px;">"In a world full of hate... let's show some LOVE!"</p>
         <div style="border-top: 1px solid #334155; margin-top: 32px; padding-top: 16px; text-align: center; color: #F0EDE6; font-size: 12px;">
@@ -64,7 +79,7 @@ export async function sendConfirmationEmail(reg: Registration) {
         </div>
       </div>
     `,
-    text: `${subject}\n\nDear ${reg.name},\n\nThank you!\n\n${isSponsor ? `Tier: ${reg.packageName} (${price})\nCompany: ${reg.companyName}` : `Package: ${reg.packageName} (${price})\nTeam Name: ${reg.teamName || 'N/A'}`}\nDate: June 29, 2026\nTime: Registration 7:00 AM | Shotgun Start 8:00 AM\nLocation: Sycamore Ridge Golf Course\n\nWe'll be in touch with additional details.\n\nContact: wolfersway@gmail.com`,
+    text: `${subject}\n\nDear ${reg.name},\n\nThank you!\n\n${isSponsor ? `Tier: ${reg.packageName} (${price})\nCompany: ${reg.companyName}` : `Package: ${reg.packageName} (${price})\nTeam Name: ${reg.teamName || 'N/A'}`}\nDate: June 29, 2026\nTime: Registration 7:00 AM | Shotgun Start 8:00 AM\nLocation: Sycamore Ridge Golf Course${payAtCourse ? `\n\nPAYMENT: Due at the course on tournament day (${price}). Cash, check (Lovelace Memorial Cup), or card accepted at the 7:00 AM registration table.` : ''}\n\nWe'll be in touch with additional details.\n\nContact: wolfersway@gmail.com`,
   });
 }
 
@@ -82,10 +97,21 @@ export async function sendNotificationEmail(reg: Registration) {
   const team = escapeHtml(reg.teamName || 'N/A');
   const requests = escapeHtml(reg.specialRequests || 'None');
 
-  const heading = isSponsor ? 'New Sponsorship' : 'New Tournament Registration';
+  const payAtCourse = reg.paymentStatus === 'pay_at_course';
+
+  const heading = isSponsor
+    ? 'New Sponsorship'
+    : payAtCourse
+      ? 'New Registration (PAY AT COURSE)'
+      : 'New Tournament Registration';
   const subject = isSponsor
     ? `New Sponsor: ${company} - ${pkg}`
-    : `New Registration: ${name} - ${pkg}`;
+    : payAtCourse
+      ? `[PAY AT COURSE] New Registration: ${name} - ${pkg}`
+      : `New Registration: ${name} - ${pkg}`;
+  const paymentRow = isSponsor
+    ? ''
+    : `<tr><td style="padding: 8px; font-weight: bold;">Payment:</td><td style="padding: 8px;">${payAtCourse ? `<span style="color:#b45309;">Due at the course (${price})</span>` : `Paid online (${price})`}</td></tr>`;
 
   const extraRows = isSponsor
     ? `<tr><td style="padding: 8px; font-weight: bold;">Company:</td><td style="padding: 8px;">${company}</td></tr>`
@@ -104,6 +130,7 @@ export async function sendNotificationEmail(reg: Registration) {
           <tr><td style="padding: 8px; font-weight: bold;">Email:</td><td style="padding: 8px;">${email}</td></tr>
           <tr><td style="padding: 8px; font-weight: bold;">Phone:</td><td style="padding: 8px;">${phone}</td></tr>
           <tr><td style="padding: 8px; font-weight: bold;">${isSponsor ? 'Tier' : 'Package'}:</td><td style="padding: 8px;">${pkg} (${price})</td></tr>
+          ${paymentRow}
           ${extraRows}
         </table>
       </div>

@@ -5,7 +5,13 @@ export const metadata = {
   title: 'Registration Confirmed - Lovelace Memorial Cup',
 };
 
-export default function RegistrationSuccess() {
+export default function RegistrationSuccess({
+  searchParams,
+}: {
+  searchParams?: { method?: string };
+}) {
+  const payAtCourse = searchParams?.method === 'course';
+
   return (
     <main className="min-h-screen bg-ivory-100 flex items-center justify-center px-4 py-20">
       <div className="max-w-lg w-full text-center">
@@ -15,11 +21,24 @@ export default function RegistrationSuccess() {
           </div>
 
           <h1 className="font-display font-bold text-3xl text-midnight-900 mb-3">
-            You&apos;re In!
+            {payAtCourse ? 'Spot Reserved!' : 'You’re In!'}
           </h1>
           <p className="text-midnight-700 text-lg mb-8">
-            Your registration and payment have been confirmed. Check your email for a full confirmation with event details.
+            {payAtCourse
+              ? 'Your spot is locked in. Just bring your payment to the registration table on tournament day. We’ve sent a confirmation email with the details.'
+              : 'Your registration and payment have been confirmed. Check your email for a full confirmation with event details.'}
           </p>
+
+          {payAtCourse && (
+            <div className="bg-amber-50 border border-amber-300 rounded-xl p-5 mb-6 text-left">
+              <h3 className="font-display font-semibold text-midnight-900 mb-2">Payment at Check-In</h3>
+              <p className="text-midnight-700 text-sm">
+                Bring cash, a check made out to <strong>Lovelace Memorial Cup</strong>, or a card to the
+                7:00 AM registration table. Please plan to arrive a few minutes early so we can get
+                you and your team checked in before the 8:00 AM shotgun start.
+              </p>
+            </div>
+          )}
 
           <div className="bg-sage-50 border border-sage-200 rounded-xl p-6 mb-8 text-left space-y-2">
             <h3 className="font-display font-semibold text-midnight-900 mb-3">Event Details</h3>
