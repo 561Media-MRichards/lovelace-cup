@@ -102,7 +102,9 @@ export default async function AdminPage() {
                   <Th>Price</Th>
                   <Th>Status</Th>
                   <Th>Notes</Th>
-                  <Th></Th>
+                  <th className="text-left font-semibold px-4 py-3 whitespace-nowrap sticky right-0 bg-ivory-200 shadow-[-4px_0_4px_-2px_rgba(0,0,0,0.05)]">
+                    Action
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -139,9 +141,9 @@ export default async function AdminPage() {
                     <Td className="max-w-xs whitespace-pre-wrap text-midnight-700">
                       {r.specialRequests || '—'}
                     </Td>
-                    <Td>
+                    <td className="px-4 py-3 sticky right-0 bg-white shadow-[-4px_0_4px_-2px_rgba(0,0,0,0.05)]">
                       <DeleteButton id={r.id} name={r.name} />
-                    </Td>
+                    </td>
                   </tr>
                 ))}
               </tbody>

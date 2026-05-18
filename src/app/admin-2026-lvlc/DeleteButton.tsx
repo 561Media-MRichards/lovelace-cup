@@ -29,7 +29,7 @@ export function DeleteButton({ id, name }: { id: number; name: string }) {
         type="button"
         onClick={onClick}
         disabled={isPending}
-        className="text-xs font-semibold text-rose-500 hover:text-rose-600 disabled:opacity-50"
+        className="inline-flex items-center justify-center rounded-md bg-rose-500 text-white text-xs font-semibold px-3 py-1.5 hover:bg-rose-600 disabled:opacity-50 whitespace-nowrap"
       >
         {isPending ? 'Deleting…' : 'Delete'}
       </button>
