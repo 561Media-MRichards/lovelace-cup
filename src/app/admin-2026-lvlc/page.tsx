@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { desc } from 'drizzle-orm';
 import { getDb } from '../../../db';
 import { registrations } from '../../../db/schema';
+import { DeleteButton } from './DeleteButton';
 
 export const metadata: Metadata = {
   title: 'Signups — Lovelace Memorial Cup',
@@ -101,12 +102,13 @@ export default async function AdminPage() {
                   <Th>Price</Th>
                   <Th>Status</Th>
                   <Th>Notes</Th>
+                  <Th></Th>
                 </tr>
               </thead>
               <tbody>
                 {rows.length === 0 && (
                   <tr>
-                    <td colSpan={10} className="text-center py-10 text-midnight-700">
+                    <td colSpan={11} className="text-center py-10 text-midnight-700">
                       No signups yet.
                     </td>
                   </tr>
@@ -137,6 +139,9 @@ export default async function AdminPage() {
                     <Td className="max-w-xs whitespace-pre-wrap text-midnight-700">
                       {r.specialRequests || '—'}
                     </Td>
+                    <Td>
+                      <DeleteButton id={r.id} name={r.name} />
+                    </Td>
                   </tr>
                 ))}
               </tbody>
@@ -157,7 +162,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   );
 }
 
-function Th({ children }: { children: React.ReactNode }) {
+function Th({ children }: { children?: React.ReactNode }) {
   return <th className="text-left font-semibold px-4 py-3 whitespace-nowrap">{children}</th>;
 }
 
